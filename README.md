@@ -12,8 +12,13 @@ user=> (when-let-multi [a 1 b 2 c 3]
                        (println "I'm in love with the coco")
                        a)
 => "I'm in love with the coco"
-=> 1                      
+=> 1
 
+;;returns nil when one binding nil or false
+user=> (when-let-multi [a 1 b nil c 3] 
+                              (println "Please print me!!!")
+                              a)
+=> nil                              
 ```
 
 ## License
