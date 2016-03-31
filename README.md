@@ -11,10 +11,10 @@ Extended Collection & Utility library for Clojure.
 user=> (when-let-multi [a 1 b 2 c 3]
                        (println "I'm in love with the coco")
                        a)
-=>I'm in love with the coco
+=> "I'm in love with the coco"
 => 1                      
 
-``
+```
 
 ## License
 
