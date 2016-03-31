@@ -2,6 +2,9 @@
 
 Extended Collection & Utility library for Clojure.
 
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
+
 ## Usage
 
 **when-let-multi**: Multiple binding version of **when-let**
