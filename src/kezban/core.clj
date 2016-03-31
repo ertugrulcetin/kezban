@@ -18,3 +18,18 @@
   `(let [r# (and ~@(get-secondary-values-from-vector bindings))]
      (when r#
        (let* ~(destructure bindings) ~@body))))
+
+(defmacro if-let-multi
+  ([bindings then]
+   `(if-let-multi ~bindings ~then nil))
+  ([bindings then else]
+   `(let [temp# (and ~@(get-secondary-values-from-vector bindings))]
+      (if temp#
+        (let* ~(destructure bindings) ~then)
+        (let* ~(destructure bindings) ~else)))))
+
+(defmacro ->>>
+  ([f val]
+   ((comp f) val))
+  [& form]
+  `((comp ~@(butlast form)) ~(last form)))
