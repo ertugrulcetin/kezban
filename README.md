@@ -2,7 +2,7 @@
 
 Extended Collection & Utility library for Clojure.
 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![Keep Calm And Don't Program Like a Kezban](https://github.com/ertugrulcetin/kezban/blob/master/keep-calm-kezban.png?raw=true)
 
 
 ## Usage
