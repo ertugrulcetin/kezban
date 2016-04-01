@@ -9,6 +9,8 @@ Extended Collection & Utility library for Clojure.
 
 ```clojure
 
+(use 'kezban.core)
+
 user=> (when-let-multi [a 1 b 2 c 3]
                        (println "I'm in love with the coco")
                        a)

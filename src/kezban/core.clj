@@ -11,8 +11,8 @@
   (map #(second %) (partition 2 bindings)))
 
 (defmacro when-let-multi
-  [bindings & body]
   "Multiple binding version of when-let"
+  [bindings & body]
   (assert (vector? bindings) "a vector for its binding")
   (assert (even? (count bindings)) "exactly even forms in binding vector")
   `(let [r# (and ~@(get-secondary-values-from-vector bindings))]
@@ -20,6 +20,7 @@
        (let* ~(destructure bindings) ~@body))))
 
 (defmacro if-let-multi
+  "Multiple binding version of if-let"
   ([bindings then]
    `(if-let-multi ~bindings ~then nil))
   ([bindings then else]
