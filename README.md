@@ -34,13 +34,13 @@ user=> (if-let-multi [a 1 b 2 c 3]
                        (* a b c))
 => 6
 
-;;returns then part when on binding is nil or false
+;;returns then part when one binding is nil or false
 user=> (if-let-multi [a 1 b nil c 3] 
                               "Nope not here"
                               "Here I Am Baby!")
 => "Here I Am Baby!"         
                  
-user=> (if-let-multi [a 1 b nil c 3] 
+user=> (if-let-multi [a 1 b false c 3] 
                               "Nope not here")
 => nil      
 ```
