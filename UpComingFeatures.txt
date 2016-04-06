@@ -1,0 +1,14 @@
+
+~~~~ Upcoming Features ~~~~
+
+~~~ Core ~~~
+
+- not-{for every function with a question mark and vice versa}?
+-
+
+~~~ String ~~~
+
+- apache string functions
+- leftpad & rightpad
+
+~~~ Set ~~~

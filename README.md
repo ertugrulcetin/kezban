@@ -24,6 +24,27 @@ user=> (when-let-multi [a 1 b nil c 3]
 => nil                              
 ```
 
+**if-let-multi**: Multiple binding version of **if-let**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (if-let-multi [a 1 b 2 c 3]
+                       (* a b c))
+=> 6
+
+;;returns then part when on binding is nil or false
+user=> (if-let-multi [a 1 b nil c 3] 
+                              "Nope not here"
+                              "Here I Am Baby!")
+=> "Here I Am Baby!"         
+                 
+user=> (if-let-multi [a 1 b nil c 3] 
+                              "Nope not here")
+=> nil      
+```
+
 ## License
 ```
   Copyright © 2016 Ertuğrul Çetin

@@ -3,5 +3,5 @@
             [kezban.core :refer :all]))
 
 (deftest a-test
-  (testing "FIXME, I fail."
+  (testing "F*** Me, I fail."
     (is (= 0 1))))

@@ -4,8 +4,6 @@
   []
   "I'M DAMN SEXY!")
 
-;;TODO Write assert-me macro for multiple assertion
-
 (defmacro assert-all
   [& pairs]
   `(do (when-not ~(first pairs)
@@ -13,7 +11,7 @@
                   (str (first ~'&form) " requires " ~(second pairs) " in " ~'*ns* ":" (:line (meta ~'&form))))))
        ~(let [more (nnext pairs)]
           (when more
-            (list* `assert-args more)))))
+            (list* `assert-all more)))))
 
 (defn- get-secondary-values-from-vector
   [bindings]
@@ -43,7 +41,9 @@
         (let* ~(destructure bindings) ~else)))))
 
 (defmacro ->>>
-  ([f val]
-   ((comp f) val))
+  "Takes a set of functions and value at the end of the arguments.
+   Returns a result that is the composition
+   of those funtions.Applies the rightmost of fns to the args(last arg is the value!),
+   the next fn (right-to-left) to the result, etc."
   [& form]
   `((comp ~@(butlast form)) ~(last form)))
