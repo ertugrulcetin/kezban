@@ -45,7 +45,7 @@ user=> (if-let-multi [a 1 b false c 3]
 => nil      
 ```
 
-**->>>**: Alternative of **->**  ,  **->>**  and  **(comp) with one arg**
+**->>>**: Alternative to **->**  ,  **->>**  and  **(comp) with one arg**
 
 ```clojure
 

@@ -47,3 +47,105 @@
    the next fn (right-to-left) to the result, etc."
   [& form]
   `((comp ~@(butlast form)) ~(last form)))
+
+;;not-{fun}? Start
+
+(def not-nil? (complement nil?))
+
+(def not-symbol? (complement symbol?))
+
+(def not-keyword? (complement keyword?))
+
+(def not-chunked-seq? (complement chunked-seq?))
+
+(def not-delay? (complement delay?))
+
+(def not-identical? (complement identical?))
+
+(def not-zero? (complement zero?))
+
+(def not-pos? (complement pos?))
+
+(def not-neg? (complement neg?))
+
+(def not-integer? (complement integer?))
+
+(def not-even? (complement even?))
+
+(def not-odd? (complement odd?))
+
+(def not-map-entry? (complement map-entry?))
+
+(def not-contains? (complement contains?))
+
+(def not-volatile? (complement volatile?))
+
+(def not-reduced? (complement reduced?))
+
+(def not-number? (complement number?))
+
+(def not-ratio? (complement ratio?))
+
+(def not-decimal? (complement decimal?))
+
+(def not-float? (complement float?))
+
+(def not-rational? (complement rational?))
+
+(def not-set? (complement set?))
+
+(def not-special-symbol? (complement special-symbol?))
+
+(def not-var? (complement var?))
+
+(def not-class? (complement class?))
+
+(def not-bound? (complement bound?))
+
+(def not-thread-bound? (complement thread-bound?))
+
+(def not-isa? (complement isa?))
+
+(def not-distinct? (complement distinct?))
+
+(def not-empty? (complement empty?))
+
+(def not-coll? (complement coll?))
+
+(def not-list? (complement list?))
+
+(def not-ifn? (complement ifn?))
+
+(def not-fn? (complement fn?))
+
+(def not-associative? (complement associative?))
+
+(def not-sequential? (complement sequential?))
+
+(def not-sorted? (complement sorted?))
+
+(def not-counted? (complement counted?))
+
+(def not-reversible? (complement reversible?))
+
+(def not-future? (complement future?))
+
+(def not-future-done? (complement future-done?))
+
+(def not-future-cancelled? (complement future-cancelled?))
+
+(def not-realized? (complement realized?))
+
+(def not-tagged-literal? (complement tagged-literal?))
+
+(def not-reader-conditional? (complement reader-conditional?))
+
+(def not-seq? (complement seq?))
+
+(def not-char? (complement char?))
+
+(def not-string? (complement string?))
+
+(def not-map? (complement map?))
+
+(def not-vector? (complement vector?))
