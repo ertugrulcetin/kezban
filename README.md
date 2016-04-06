@@ -56,7 +56,6 @@ user=> (if-let-multi [a 1 b false c 3]
 ;; standard equivalent (inc (#(* % 2) 5))
 
 user=> (->>> inc #(* % 2) 5) ;;5 is the input
-
 => 11
 
 
@@ -64,7 +63,6 @@ user=> (->>> inc #(* % 2) 5) ;;5 is the input
 ;; standard equivalent (inc (second (reverse '("a" 2 7 "b"))))
 
 user=> (->>> inc second reverse '("a" 2 7 "b")) ;;'("a" 2 7 "b") is the input
-
 => 8
 ```
 
