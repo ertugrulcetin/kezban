@@ -45,12 +45,12 @@ user=> (if-let-multi [a 1 b false c 3]
 => nil      
 ```
 
-**->>>**: Alternative of **->** & **->>** & **(comp) with one arg**
+**->>>**: Alternative of **->**  ,  **->>**  and  **(comp) with one arg**
 
 ```clojure
 
 ;;Applying Right-To-Left 
-;;Last Argument has to be value(input)!
+;;Last Argument has to be a value(input)!
 
 ;; comp equivalent: ((comp inc #(* % 2)) 5)
 ;; standard equivalent (inc (#(* % 2) 5))
