@@ -149,3 +149,48 @@
 (def not-map? (complement map?))
 
 (def not-vector? (complement vector?))
+
+
+(defn nth-2
+  "Returns the value at the index. get returns nil if index out of
+   bounds,unlike nth nth-2 does not throw an exception.nth-2
+   also works for strings, Java arrays, regex Matchers and Lists, and,
+   in O(n) time, for sequences."
+  [coll n]
+  (first (loop [i (- n 1)
+                result coll]
+           (if (zero? i)
+             result
+             (recur (- i 1) (next result))))))
+
+(defn third
+  [coll]
+  (nth-2 coll 3))
+
+(defn fourth
+  [coll]
+  (nth-2 coll 4))
+
+(defn fifth
+  [coll]
+  (nth-2 coll 5))
+
+(defn sixth
+  [coll]
+  (nth-2 coll 6))
+
+(defn seventh
+  [coll]
+  (nth-2 coll 7))
+
+(defn eighth
+  [coll]
+  (nth-2 coll 8))
+
+(defn ninth
+  [coll]
+  (nth-2 coll 9))
+
+(defn tenth
+  [coll]
+  (nth-2 coll 10))
