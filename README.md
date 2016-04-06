@@ -45,6 +45,27 @@ user=> (if-let-multi [a 1 b false c 3]
 => nil      
 ```
 
+**->>>**: Alternative of **->** & **->>** & **(comp) with one arg**
+
+;;Applying Right-To-Left 
+;;Last Argument has to be value(input)!
+
+;; comp equivalent: ((comp inc #(* % 2)) 5)
+;; standard equivalent (inc (#(* % 2) 5))
+
+user=> (->>> inc #(* % 2) 5) ;;5 is the input
+
+=> 11
+
+
+;; comp equivalent: ((comp inc second reverse) '("a" 2 7 "b"))
+;; standard equivalent (inc (second (reverse '("a" 2 7 "b"))))
+
+user=> (->>> inc second reverse '("a" 2 7 "b")) ;;'("a" 2 7 "b") is the input
+
+=> 8
+
+
 ## License
 ```
   Copyright © 2016 Ertuğrul Çetin

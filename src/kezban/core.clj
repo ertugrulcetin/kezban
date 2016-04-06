@@ -43,7 +43,7 @@
 (defmacro ->>>
   "Takes a set of functions and value at the end of the arguments.
    Returns a result that is the composition
-   of those funtions.Applies the rightmost of fns to the args(last arg is the value!),
+   of those funtions.Applies the rightmost of fns to the args(last arg is the value/input!),
    the next fn (right-to-left) to the result, etc."
   [& form]
   `((comp ~@(butlast form)) ~(last form)))
