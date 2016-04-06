@@ -47,6 +47,8 @@ user=> (if-let-multi [a 1 b false c 3]
 
 **->>>**: Alternative of **->** & **->>** & **(comp) with one arg**
 
+```clojure
+
 ;;Applying Right-To-Left 
 ;;Last Argument has to be value(input)!
 
@@ -64,6 +66,7 @@ user=> (->>> inc #(* % 2) 5) ;;5 is the input
 user=> (->>> inc second reverse '("a" 2 7 "b")) ;;'("a" 2 7 "b") is the input
 
 => 8
+```
 
 
 ## License
