@@ -107,6 +107,7 @@ user=> (not-keyword? "Are u messing with me?")
 
 user=> (not-keyword? :get-out-of-here)
 => false
+
 ```
 
 **not-chunked-seq?**: Not version of **chunked-seq?**
@@ -151,6 +152,132 @@ user=> (not-identical? "we ain't identical" "you nailed it!")
 => true
 
 user=> (not-identical? "you again?" "you again?")
+=> false
+   
+```
+
+**not-zero?**: Not version of **zero?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-zero? 666)
+=> true
+
+user=> (not-zero? 0)
+=> false
+   
+```
+
+**not-pos?**: Not version of **pos?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-pos? -31)
+=> true
+
+user=> (not-pos? 69)
+=> false
+   
+```
+
+**not-pos?**: Not version of **pos?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-pos? -31)
+=> true
+
+user=> (not-pos? 69)
+=> false
+   
+```
+
+**not-neg?**: Not version of **neg?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-neg? 31)
+=> true
+
+user=> (not-neg? -69)
+=> false
+   
+```
+
+**not-integer?**: Not version of **integer?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-integer? 69.31)
+=> true
+
+user=> (not-integer? 62)
+=> false
+   
+```
+
+**not-even?**: Not version of **even?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-even? 1)
+=> true
+
+user=> (not-even? 2)
+=> false
+   
+```
+
+**not-odd?**: Not version of **odd?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-odd? 2)
+=> true
+
+user=> (not-odd? 1)
+=> false
+   
+```
+
+**not-map-entry?**: Not version of **map-entry?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-map-entry? (seq {:nasty 1 :sexy 2}))
+=> true
+
+user=> (not-map-entry? (first (seq {:nasty 1 :sexy 2})))
+=> false
+   
+```
+
+**not-contains?**: Not version of **contains?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-contains? {:good-boys 10 :bad-girls 20} :nasty-girls)
+=> true
+
+user=> (not-contains? {:good-boys 10 :bad-girls 20} :good-boys)
 => false
    
 ```
