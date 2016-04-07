@@ -107,7 +107,8 @@ user=> (not-keyword? "Are u messing with me?")
 
 user=> (not-keyword? :get-out-of-here)
 => false
-  
+```
+
 **not-chunked-seq?**: Not version of **chunked-seq?**
 
 ```clojure
