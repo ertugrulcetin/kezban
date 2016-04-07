@@ -78,7 +78,7 @@ user=> (not-nil? "I'm not nil bro!")
 => true
 
 user=> (not-nil? nil)
-=>false
+=> false
    
 ```
 
@@ -92,7 +92,7 @@ user=> (not-symbol? "No man, I'm not a symbol")
 => true
 
 user=> (not-symbol? 'here-we-go-i-am-the-symbol)
-=>false
+=> false
    
 ```
 
@@ -106,7 +106,7 @@ user=> (not-keyword? "Are u messing with me?")
 => true
 
 user=> (not-keyword? :get-out-of-here)
-=>false
+=> false
   
 **not-chunked-seq?**: Not version of **chunked-seq?**
 
@@ -118,7 +118,7 @@ user=> (not-chunked-seq? (iterate inc 10))
 => true
 
 user=> (not-chunked-seq? (range 10))
-=>false
+=> false
    
 ```
 
@@ -136,7 +136,7 @@ user=> (not-delay? "You bet!")
 => true
 
 user=> (not-delay? v)
-=>false
+=> false
    
 ```
 
@@ -150,7 +150,7 @@ user=> (not-identical? "we ain't identical" "you nailed it!")
 => true
 
 user=> (not-identical? "you again?" "you again?")
-=>false
+=> false
    
 ```
 
