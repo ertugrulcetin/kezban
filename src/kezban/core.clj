@@ -49,7 +49,6 @@
   `((comp ~@(butlast form)) ~(last form)))
 
 ;;not-{fun}? Start
-
 (def not-nil? (complement nil?))
 
 (def not-symbol? (complement symbol?))
@@ -149,7 +148,6 @@
 (def not-map? (complement map?))
 
 (def not-vector? (complement vector?))
-
 
 (defn nth-2
   "Returns the value at the index. get returns nil if index out of

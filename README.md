@@ -49,6 +49,8 @@ user=> (if-let-multi [a 1 b false c 3]
 
 ```clojure
 
+(use 'kezban.core)
+
 ;;Applying Right-To-Left 
 ;;Last Argument has to be a value(input)!
 
@@ -65,6 +67,93 @@ user=> (->>> inc #(* % 2) 5) ;;5 is the input
 user=> (->>> inc second reverse '("a" 2 7 "b")) ;;'("a" 2 7 "b") is the input
 => 8
 ```
+
+**not-nil?**: Not version of **nil?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-nil? "I'm not nil bro!")
+=> true
+
+user=> (not-nil? nil)
+=>false
+   
+```
+
+**not-symbol?**: Not version of **symbol?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-symbol? "No man, I'm not a symbol")
+=> true
+
+user=> (not-symbol? 'here-we-go-i-am-the-symbol)
+=>false
+   
+```
+
+**not-keyword?**: Not version of **keyword?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-keyword? "Are u messing with me?")
+=> true
+
+user=> (not-keyword? :get-out-of-here)
+=>false
+  
+**not-chunked-seq?**: Not version of **chunked-seq?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-chunked-seq? (iterate inc 10))
+=> true
+
+user=> (not-chunked-seq? (range 10))
+=>false
+   
+```
+
+**not-delay?**: Not version of **delay?**
+
+```clojure
+
+(use 'kezban.core)
+
+=> (def v (delay (do (println "I Don't F*** With U") 
+                            (Thread/sleep 1000) 
+                            10)))
+
+user=> (not-delay? "You bet!")
+=> true
+
+user=> (not-delay? v)
+=>false
+   
+```
+
+**not-identical?**: Not version of **identical?**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-identical? "we ain't identical" "you nailed it!")
+=> true
+
+user=> (not-identical? "you again?" "you again?")
+=>false
+   
+```
+
 
 
 ## License
