@@ -48,6 +48,13 @@
   [& form]
   `((comp ~@(butlast form)) ~(last form)))
 
+(defn drop-when
+  "Returns a lazy sequence of the items in coll for which
+  (pred item) returns false. pred must be free of side-effects.
+  Returns a transducer when no collection is provided."
+  [pred coll]
+  (filter (complement pred) coll))
+
 ;;not-{fun}? Start
 (def not-nil? (complement nil?))
 
@@ -149,9 +156,9 @@
 
 (def not-vector? (complement vector?))
 
-(defn nth-2
+(defn nth-safe
   "Returns the value at the index. get returns nil if index out of
-   bounds,unlike nth nth-2 does not throw an exception.nth-2
+   bounds,unlike nth nth-2 does not throw an exception, returns nil instead.nth-2
    also works for strings, Java arrays, regex Matchers and Lists, and,
    in O(n) time, for sequences."
   [coll n]
@@ -163,32 +170,32 @@
 
 (defn third
   [coll]
-  (nth-2 coll 3))
+  (nth-safe coll 3))
 
 (defn fourth
   [coll]
-  (nth-2 coll 4))
+  (nth-safe coll 4))
 
 (defn fifth
   [coll]
-  (nth-2 coll 5))
+  (nth-safe coll 5))
 
 (defn sixth
   [coll]
-  (nth-2 coll 6))
+  (nth-safe coll 6))
 
 (defn seventh
   [coll]
-  (nth-2 coll 7))
+  (nth-safe coll 7))
 
 (defn eighth
   [coll]
-  (nth-2 coll 8))
+  (nth-safe coll 8))
 
 (defn ninth
   [coll]
-  (nth-2 coll 9))
+  (nth-safe coll 9))
 
 (defn tenth
   [coll]
-  (nth-2 coll 10))
+  (nth-safe coll 10))

@@ -282,7 +282,188 @@ user=> (not-contains? {:good-boys 10 :bad-girls 20} :good-boys)
    
 ```
 
+**not-volatile?**: Not version of **volatile?**
 
+```clojure
+
+(use 'kezban.core)
+
+(def volatile-ass (volatile! 0))
+
+(def ass 0)
+
+user=> (not-volatile? ass)
+=> true
+
+user=> (not-volatile? volatile-ass)
+=> false
+   
+```
+
+**not-reduced?**: Not version of **reduced?**
+
+```clojure
+
+(use 'kezban.core)
+
+(def white-ass :language-please!)
+
+(def black-ass (reduced :you-wanna-fight?))
+
+
+user=> (not-reduced? white-ass)
+=> true
+
+user=> (not-reduced? black-ass)
+=> false
+   
+```
+
+**not-number?**: Not version of **number?**
+   
+```clojure
+   
+(use 'kezban.core)
+   
+user=> (not-number? "Who do u think u are?")
+=> true
+   
+user=> (not-number? 13)
+=> false
+      
+```
+
+**not-ratio?**: Not version of **ratio?**
+   
+```clojure
+   
+(use 'kezban.core)
+   
+user=> (not-ratio? "You messing with the wrong daddy")
+=> true
+   
+user=> (not-ratio? 1/5)
+=> false
+      
+```
+
+**not-decimal?**: Not version of **decimal?**
+   
+```clojure
+   
+(use 'kezban.core)
+   
+user=> (not-decimal? 1)
+=> true
+   
+user=> (not-decimal? 1M)
+=> false
+      
+```
+
+**not-float?**: Not version of **float?**
+   
+```clojure
+   
+(use 'kezban.core)
+   
+user=> (not-float? "Jesus!!")
+=> true
+   
+user=> (not-float? 1.5)
+=> false
+      
+```
+
+**not-rational?**: Not version of **rational?**
+   
+```clojure
+   
+(use 'kezban.core)
+   
+user=> (not-rational? 1.5)
+=> true
+   
+user=> (not-rational? 1)
+=> false
+      
+```
+
+**not-set?**: Not version of **set?**
+   
+```clojure
+   
+(use 'kezban.core)
+   
+user=> (not-set? ["this" "is" "bloody" "sexy"])
+=> true
+   
+user=> (not-set? #{"watch your language sir!"})
+=> false
+      
+```
+
+**not-special-symbol?**: Not version of **special-symbol?**
+   
+```clojure
+   
+(use 'kezban.core)
+   
+user=> (not-special-symbol? 'candy-shop)
+=> true
+   
+user=> (not-special-symbol? 'if)
+=> false
+      
+```
+
+**not-var?**: Not version of **var?**
+   
+```clojure
+   
+(use 'kezban.core)
+
+(def sexy-var)
+   
+user=> (not-var? 'i-m-not-a-var-bitch)
+=> true
+   
+user=> (not-var? #'sexy-var)
+=> false
+      
+```
+
+**not-class?**: Not version of **class?**
+   
+```clojure
+   
+(use 'kezban.core)
+   
+user=> (not-class? "nope go to James Gosling and ask why?")
+=> true
+   
+user=> (not-class? java.lang.String)
+=> false
+      
+```
+
+**not-bound?**: Not version of **bound?**
+   
+```clojure
+   
+(use 'kezban.core)
+
+(def pamela-anderson)
+
+(def kim-kardashian 69)
+   
+user=> (not-bound? #'pamela-anderson)
+=> true
+   
+user=> (not-bound? #'kim-kardashian)
+=> false
+      
+```
 
 ## License
 ```
