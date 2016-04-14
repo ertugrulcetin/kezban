@@ -48,12 +48,53 @@
   [& form]
   `((comp ~@(butlast form)) ~(last form)))
 
-(defn drop-when
-  "Returns a lazy sequence of the items in coll for which
-  (pred item) returns false. pred must be free of side-effects.
-  Returns a transducer when no collection is provided."
-  [pred coll]
-  (filter (complement pred) coll))
+(defn drop-first
+  [coll]
+  (drop 1 coll))
+
+(defn nth-safe
+  "Returns the value at the index. get returns nil if index out of
+   bounds,unlike nth nth-2 does not throw an exception, returns nil instead.nth-2
+   also works for strings, Java arrays, regex Matchers and Lists, and,
+   in O(n) time, for sequences."
+  [coll n]
+  (first (loop [i (- n 1)
+                result coll]
+           (if (<= i 0)
+             result
+             (recur (- i 1) (next result))))))
+
+(defn third
+  [coll]
+  (nth-safe coll 3))
+
+(defn fourth
+  [coll]
+  (nth-safe coll 4))
+
+(defn fifth
+  [coll]
+  (nth-safe coll 5))
+
+(defn sixth
+  [coll]
+  (nth-safe coll 6))
+
+(defn seventh
+  [coll]
+  (nth-safe coll 7))
+
+(defn eighth
+  [coll]
+  (nth-safe coll 8))
+
+(defn ninth
+  [coll]
+  (nth-safe coll 9))
+
+(defn tenth
+  [coll]
+  (nth-safe coll 10))
 
 ;;not-{fun}? Start
 (def not-nil? (complement nil?))
@@ -155,47 +196,3 @@
 (def not-map? (complement map?))
 
 (def not-vector? (complement vector?))
-
-(defn nth-safe
-  "Returns the value at the index. get returns nil if index out of
-   bounds,unlike nth nth-2 does not throw an exception, returns nil instead.nth-2
-   also works for strings, Java arrays, regex Matchers and Lists, and,
-   in O(n) time, for sequences."
-  [coll n]
-  (first (loop [i (- n 1)
-                result coll]
-           (if (zero? i)
-             result
-             (recur (- i 1) (next result))))))
-
-(defn third
-  [coll]
-  (nth-safe coll 3))
-
-(defn fourth
-  [coll]
-  (nth-safe coll 4))
-
-(defn fifth
-  [coll]
-  (nth-safe coll 5))
-
-(defn sixth
-  [coll]
-  (nth-safe coll 6))
-
-(defn seventh
-  [coll]
-  (nth-safe coll 7))
-
-(defn eighth
-  [coll]
-  (nth-safe coll 8))
-
-(defn ninth
-  [coll]
-  (nth-safe coll 9))
-
-(defn tenth
-  [coll]
-  (nth-safe coll 10))

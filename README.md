@@ -465,6 +465,252 @@ user=> (not-bound? #'kim-kardashian)
       
 ```
 
+**not-thread-bound?**: Not version of **thread-bound?**
+   
+```clojure
+   
+(use 'kezban.core)
+   
+user=> (not-thread-bound? #'map)
+=> true
+   
+user=> (not-thread-bound? #'*warn-on-reflection*)
+=> false
+      
+```
+
+**not-isa?**: Not version of **isa?**
+   
+```clojure
+   
+(use 'kezban.core)
+
+(derive ::bitch ::pimp)
+
+(derive ::drug-dealer ::mafia)
+   
+user=> (not-isa? ::drug-dealer ::pimp)
+=> true
+   
+user=> (not-isa? ::bitch ::pimp)
+=> false
+      
+```
+
+**not-distinct?**: Not version of **distinct?**
+   
+```clojure
+
+(use 'kezban.core)
+   
+user=> (not-distinct? 1 2)
+=> true
+   
+user=> (not-distinct? 69 69)
+=> false
+      
+```
+
+**not-empty?**: Not version of **empty?**
+   
+```clojure
+
+(use 'kezban.core)
+   
+user=> (not-empty? ["do" "me" "good"])
+=> true
+   
+user=> (not-empty? [])
+=> false
+      
+```
+
+**not-coll?**: Not version of **coll?**
+   
+```clojure
+
+(use 'kezban.core)
+   
+user=> (not-coll? "i ain't coll")
+=> true
+   
+user=> (not-coll? [])
+=> false
+      
+```
+
+**not-list?**: Not version of **list?**
+   
+```clojure
+
+(use 'kezban.core)
+   
+user=> (not-list? "i ain't list too")
+=> true
+   
+user=> (not-list? '())
+=> false
+      
+```
+
+**not-ifn?**: Not version of **ifn?**
+   
+```clojure
+
+(use 'kezban.core)
+   
+user=> (not-ifn? "i ain't function too god dammit")
+=> true
+   
+user=> (not-ifn? #("i'm the function dammit"))
+=> false
+      
+```
+
+**not-fn?**: Not version of **fn?**
+   
+```clojure
+
+(use 'kezban.core)
+   
+user=> (not-fn? 5)
+=> true
+   
+user=> (not-fn? #("bring it on"))
+=> false
+      
+```
+
+**not-associative?**: Not version of **associative?**
+   
+```clojure
+
+(use 'kezban.core)
+   
+user=> (not-associative? '(1 2 3))
+=> true
+   
+user=> (not-associative? [1 2 3])
+=> false
+      
+```
+
+**not-sequential?**: Not version of **sequential?**
+   
+```clojure
+
+(use 'kezban.core)
+   
+user=> (not-sequential? "nope sorry!")
+=> true
+   
+user=> (not-sequential? [1 2 3])
+=> false
+      
+```
+
+**not-sorted?**: Not version of **sorted?**
+   
+```clojure
+
+(use 'kezban.core)
+
+;; Note you can't just pass in a collection that happens to be sorted.
+user=> (not-sorted? [1 2 3])
+=> true
+   
+user=> (not-sorted? (sorted-set 5 3 1 2 4))
+=> false
+      
+```
+
+**not-counted?**: Not version of **counted?**
+   
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-counted? "hmm :)")
+=> true
+   
+user=> (not-counted? ["lets" "make" "party" "in" "ibiza"])
+=> false
+      
+```
+
+**not-reversible?**: Not version of **reversible?**
+   
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-reversible? '())
+=> true
+   
+user=> (not-reversible? [])
+=> false
+      
+```
+
+**not-future?**: Not version of **future?**
+   
+```clojure
+
+(use 'kezban.core)
+
+(def f (future (inc 0)))
+
+(def e 1)
+
+user=> (not-future? e)
+=> true
+   
+user=> (not-future? f)
+=> false
+      
+```
+
+**not-future-done?**: Not version of **future-done?**
+   
+```clojure
+
+(use 'kezban.core)
+
+(def f (future (Thread/sleep 5000) (inc 0)))
+
+user=> (not-future-done? f)
+=> true
+
+user=> (Thread/sleep 5000)
+=> nil
+   
+user=> (not-future-done? f)
+=> false
+      
+```
+
+**not-future-cancelled?**: Not version of **future-cancelled?**
+   
+```clojure
+
+(use 'kezban.core)
+
+(def f (future (Thread/sleep 10000) (inc 0)))
+
+user=> (not-future-cancelled? f)
+=> true
+
+user=> (future-cancel f)
+=> true
+   
+user=> (not-future-done? f)
+=> false
+      
+```
+
+
+
+
 ## License
 ```
   Copyright © 2016 Ertuğrul Çetin
