@@ -2,6 +2,9 @@
 
 Extended Collection & Utility library for Clojure.
 
+##Leiningen
+
+`[kezban "0.1.0-SNAPSHOT"]`
 
 ## Usage
 
