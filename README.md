@@ -101,6 +101,40 @@ user=> (nth-safe coll 12 "gimme more!")
    
 ```
 
+**third, fourth, fifth, sixth, seventh, eighth, ninth, tenth**: addition to **first and second**
+
+```clojure
+
+(use 'kezban.core)
+
+(def coll [1 2 3 4 5 6 7 8 9 10])
+
+user=> (third coll)
+=> 3
+
+user=> (fourth coll)
+=> 4
+
+user=> (fifth coll)
+=> 5
+
+user=> (sixth coll)
+=> 6
+
+user=> (seventh coll)
+=> 7
+
+user=> (eighth coll)
+=> 8
+
+user=> (ninth coll)
+=> 9
+
+user=> (tenth coll)
+=> 10
+   
+```
+
 **not-nil?**: Not version of **nil?**
 
 ```clojure
