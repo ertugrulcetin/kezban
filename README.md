@@ -68,6 +68,20 @@ user=> (->>> inc second reverse '("a" 2 7 "b")) ;;'("a" 2 7 "b") is the input
 => 8
 ```
 
+**drop-first**: derivative function of **drop**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (drop-first [1 2 3])
+=> (2 3)
+
+user=> (drop-first [])
+=> ()
+   
+```
+
 **not-nil?**: Not version of **nil?**
 
 ```clojure

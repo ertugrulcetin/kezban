@@ -49,6 +49,7 @@
   `((comp ~@(butlast form)) ~(last form)))
 
 (defn drop-first
+  "Return a lazy sequence of all, except first value"
   [coll]
   (drop 1 coll))
 
@@ -95,6 +96,10 @@
 (defn tenth
   [coll]
   (nth-safe coll 10))
+
+(defn any?
+  [pred coll]
+  ((complement not-any?) pred coll))
 
 ;;not-{fun}? Start
 (def not-nil? (complement nil?))
