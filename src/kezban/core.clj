@@ -54,7 +54,7 @@
 
 (defn nth-safe
   "Returns the value at the index. get returns nil if index out of
-   bounds,unlike nth nth-2 does not throw an exception, returns nil instead.nth-2
+   bounds,unlike nth nth-safe does not throw an exception, returns nil instead.nth-safe
    also works for strings, Java arrays, regex Matchers and Lists, and,
    in O(n) time, for sequences."
   [coll n]
@@ -183,8 +183,10 @@
 
 (def not-realized? (complement realized?))
 
+;;TODO example will be added as soon as possible!
 (def not-tagged-literal? (complement tagged-literal?))
 
+;;TODO example will be added as soon as possible!
 (def not-reader-conditional? (complement reader-conditional?))
 
 (def not-seq? (complement seq?))

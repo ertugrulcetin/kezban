@@ -708,7 +708,75 @@ user=> (not-future-done? f)
       
 ```
 
+**not-seq?**: Not version of **seq?**
+   
+```clojure
 
+(use 'kezban.core)
+
+user=> (not-seq? ["so" "goooooood"])
+=> true
+
+user=> (not-seq? (seq ["so" "goooooood"]))
+=> false
+      
+```
+
+**not-char?**: Not version of **char?**
+   
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-char? "nope darling")
+=> true
+
+user=> (not-char? \S)
+=> false
+      
+```
+
+**not-string?**: Not version of **string?**
+   
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-string? \a)
+=> true
+
+user=> (not-string? "slap me daddy!")
+=> false
+      
+```
+
+**not-map?**: Not version of **map?**
+   
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-map? "map is over there!")
+=> true
+
+user=> (not-map? {:here 69.31})
+=> false
+      
+```
+
+**not-vector?**: Not version of **vector?**
+   
+```clojure
+
+(use 'kezban.core)
+
+user=> (not-vector? '("vector" "is" "gone"))
+=> true
+
+user=> (not-vector? ["here" "i" "am"])
+=> false
+      
+```
 
 
 ## License
