@@ -58,12 +58,18 @@
    bounds,unlike nth nth-safe does not throw an exception, returns nil instead.nth-safe
    also works for strings, Java arrays, regex Matchers and Lists, and,
    in O(n) time, for sequences."
-  [coll n]
-  (first (loop [i (- n 1)
-                result coll]
-           (if (<= i 0)
-             result
-             (recur (- i 1) (next result))))))
+  ([coll n] (nth-safe coll n nil))
+  ([coll n not-found]
+   (let [val (first (loop [i n
+                           result coll]
+                      (if (zero? i)
+                        result
+                        (if (neg? i)
+                          nil
+                          (recur (- i 1) (next result))))))]
+     (if (nil? val)
+       not-found
+       val))))
 
 (defn third
   [coll]
@@ -203,3 +209,8 @@
 (def not-map? (complement map?))
 
 (def not-vector? (complement vector?))
+
+(defn fuck-the-system
+  "Terminates the system!"
+  []
+  (System/exit 31))

@@ -82,6 +82,25 @@ user=> (drop-first [])
    
 ```
 
+**nth-safe**: safe version of **nth**
+
+```clojure
+
+(use 'kezban.core)
+
+(def coll [1 2 3 4 5])
+
+user=> (nth-safe coll 0)
+=> 1
+
+user=> (nth-safe coll 12)
+=> nil
+
+user=> (nth-safe coll 12 "gimme more!")
+=> "gimme more!"
+   
+```
+
 **not-nil?**: Not version of **nil?**
 
 ```clojure
