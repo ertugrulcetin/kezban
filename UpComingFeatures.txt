@@ -6,6 +6,7 @@
 - not-{for every function with a question mark and vice versa}?
 - -{for every function with a question mark and vice versa}?
 - all-set? all-list? etc.
+- >!, <! etc.
 
 ~~~ String ~~~
 
