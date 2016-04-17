@@ -27,6 +27,17 @@
      (when r#
        (let* ~(destructure bindings) ~@body))))
 
+(defmacro when-not-let-multi
+  "Multiple binding version of when-not"
+  [bindings & body]
+  (assert-all
+    (vector? bindings) "a vector for its binding"
+    (even? (count bindings)) "exactly even forms in binding vector")
+  `(let [r# (not (or ~@(get-secondary-values-from-vector bindings)))]
+     (when r#
+       (let* ~(destructure bindings) ~@body))))
+
+;;TODO gonna add if-not-let-multi
 (defmacro if-let-multi
   "Multiple binding version of if-let"
   ([bindings then]
@@ -103,9 +114,33 @@
   [coll]
   (nth-safe coll 10))
 
+(defn !>
+  ([x] true)
+  ([x y] (not (. clojure.lang.Numbers (gt x y))))
+  ([x y & more]
+   (if (not (> x y))
+     (if (next more)
+       (recur y (first more) (next more))
+       (not (> y (first more))))
+     false)))
+
+(defn !<
+  ([x] true)
+  ([x y] (not (. clojure.lang.Numbers (lt x y))))
+  ([x y & more]
+   (if (not (< x y))
+     (if (next more)
+       (recur y (first more) (next more))
+       (not (< y (first more))))
+     false)))
+
 (defn any?
   [pred coll]
   ((complement not-any?) pred coll))
+
+(defn sum
+  [& args]
+  (reduce + args))
 
 ;;not-{fun}? Start
 (def not-nil? (complement nil?))
