@@ -37,7 +37,6 @@
      (when r#
        (let* ~(destructure bindings) ~@body))))
 
-;;TODO gonna add if-not-let-multi
 (defmacro if-let-multi
   "Multiple binding version of if-let"
   ([bindings then]
@@ -47,6 +46,19 @@
      (vector? bindings) "a vector for its binding"
      (even? (count bindings)) "exactly even forms in binding vector")
    `(let [temp# (and ~@(get-secondary-values-from-vector bindings))]
+      (if temp#
+        (let* ~(destructure bindings) ~then)
+        (let* ~(destructure bindings) ~else)))))
+
+(defmacro if-not-let-multi
+  "Multiple binding version of if-let"
+  ([bindings then]
+   `(if-not-let-multi ~bindings ~then nil))
+  ([bindings then else]
+   (assert-all
+     (vector? bindings) "a vector for its binding"
+     (even? (count bindings)) "exactly even forms in binding vector")
+   `(let [temp# (not (or ~@(get-secondary-values-from-vector bindings)))]
       (if temp#
         (let* ~(destructure bindings) ~then)
         (let* ~(destructure bindings) ~else)))))
@@ -84,35 +96,35 @@
 
 (defn third
   [coll]
-  (nth-safe coll 3))
+  (nth-safe coll 2))
 
 (defn fourth
   [coll]
-  (nth-safe coll 4))
+  (nth-safe coll 3))
 
 (defn fifth
   [coll]
-  (nth-safe coll 5))
+  (nth-safe coll 4))
 
 (defn sixth
   [coll]
-  (nth-safe coll 6))
+  (nth-safe coll 5))
 
 (defn seventh
   [coll]
-  (nth-safe coll 7))
+  (nth-safe coll 6))
 
 (defn eighth
   [coll]
-  (nth-safe coll 8))
+  (nth-safe coll 7))
 
 (defn ninth
   [coll]
-  (nth-safe coll 9))
+  (nth-safe coll 8))
 
 (defn tenth
   [coll]
-  (nth-safe coll 10))
+  (nth-safe coll 9))
 
 (defn !>
   ([x] true)
