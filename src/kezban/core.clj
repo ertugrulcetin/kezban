@@ -28,7 +28,7 @@
        (let* ~(destructure bindings) ~@body))))
 
 (defmacro when-not-let-multi
-  "Multiple binding version of when-not"
+  "Not version of when-let-multi"
   [bindings & body]
   (assert-all
     (vector? bindings) "a vector for its binding"
@@ -51,7 +51,7 @@
         (let* ~(destructure bindings) ~else)))))
 
 (defmacro if-not-let-multi
-  "Multiple binding version of if-let"
+  "Multiple binding version of if-not"
   ([bindings then]
    `(if-not-let-multi ~bindings ~then nil))
   ([bindings then else]
@@ -149,10 +149,6 @@
 (defn any?
   [pred coll]
   ((complement not-any?) pred coll))
-
-(defn sum
-  [& args]
-  (reduce + args))
 
 ;;not-{fun}? Start
 (def not-nil? (complement nil?))

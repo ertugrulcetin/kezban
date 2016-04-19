@@ -4,7 +4,7 @@ Extended Collection & Utility library for Clojure.
 
 ##Leiningen
 
-`[kezban "0.1.0-SNAPSHOT"]`  @clojars.org
+[![Clojars Project](https://img.shields.io/clojars/v/kezban.svg)](https://clojars.org/kezban)
 
 ## Usage
 
@@ -27,6 +27,23 @@ user=> (when-let-multi [a 1 b nil c 3]
 => nil                              
 ```
 
+**when-not-let-multi**: Not version of **when-let-multi**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (when-not-let-multi [a false b false c nil]
+                       1)
+=> 1
+
+;;returns nil when one binding is true(not nil)
+user=> (when-not-let-multi [a 1 b nil c 3] 
+                              (println "I'm in the dark side!!!")
+                              a)
+=> nil                              
+```
+
 **if-let-multi**: Multiple binding version of **if-let**
 
 ```clojure
@@ -45,6 +62,27 @@ user=> (if-let-multi [a 1 b nil c 3]
                  
 user=> (if-let-multi [a 1 b false c 3] 
                               "Nope not here")
+=> nil      
+```
+
+**if-not-let-multi**: Not version of **if-let**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (if-not-let-multi [a false b false c nil]
+                       "Yeap!")
+=> "Yeap!"
+
+;;returns then part when one binding is true(not nil)
+user=> (if-not-let-multi [a false b nil c 3] 
+                              "Nope not here"
+                              "Here I Am Baby!")
+=> "Here I Am Baby!"         
+                 
+user=> (if-not-let-multi [a 1 b false c 3] 
+                              "Not gonna happen")
 => nil      
 ```
 
@@ -135,6 +173,34 @@ user=> (ninth coll)
 
 user=> (tenth coll)
 => 10
+   
+```
+
+**!>**: Not version of **>**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (!> 1 2)
+=> true
+
+user=> (!> 2 1)
+=> false
+   
+```
+
+**!<**: Not version of **<**
+
+```clojure
+
+(use 'kezban.core)
+
+user=> (!< 2 1)
+=> true
+
+user=> (!< 1 2)
+=> false
    
 ```
 
