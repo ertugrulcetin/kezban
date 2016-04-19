@@ -65,7 +65,7 @@ user=> (if-let-multi [a 1 b false c 3]
 => nil      
 ```
 
-**if-not-let-multi**: Not version of **if-let**
+**if-not-let-multi**: Not version of **if-let-multi**
 
 ```clojure
 
