@@ -2,6 +2,8 @@
 
 Extended Collection & Utility library for Clojure.
 
+The library targets Clojure 1.8 and above.
+
 ##Leiningen
 
 [![Clojars Project](https://img.shields.io/clojars/v/kezban.svg)](https://clojars.org/kezban)
