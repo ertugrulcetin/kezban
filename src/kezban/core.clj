@@ -95,38 +95,47 @@
        val))))
 
 (defn third
+  "Gets the third element from collection"
   [coll]
   (nth-safe coll 2))
 
 (defn fourth
+  "Gets the fourth element from collection"
   [coll]
   (nth-safe coll 3))
 
 (defn fifth
+  "Gets the fifth element from collection"
   [coll]
   (nth-safe coll 4))
 
 (defn sixth
+  "Gets the sixth element from collection"
   [coll]
   (nth-safe coll 5))
 
 (defn seventh
+  "Gets the seventh element from collection"
   [coll]
   (nth-safe coll 6))
 
 (defn eighth
+  "Gets the eighth element from collection"
   [coll]
   (nth-safe coll 7))
 
 (defn ninth
+  "Gets the ninth element from collection"
   [coll]
   (nth-safe coll 8))
 
 (defn tenth
+  "Gets the tenth element from collection"
   [coll]
   (nth-safe coll 9))
 
 (defn !>
+  "Not version of >"
   ([x] true)
   ([x y] (not (. clojure.lang.Numbers (gt x y))))
   ([x y & more]
@@ -137,6 +146,7 @@
      false)))
 
 (defn !<
+  "Not version of <"
   ([x] true)
   ([x y] (not (. clojure.lang.Numbers (lt x y))))
   ([x y & more]
