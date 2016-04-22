@@ -1,8 +1,8 @@
 # kezban
 
-Extended Collection & Utility library for Clojure.
+Extended Collection & Utility library for **Clojure**.
 
-The library targets Clojure 1.8 and above.
+The library targets **Clojure 1.8** and above.
 
 ##Leiningen
 
