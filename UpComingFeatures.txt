@@ -3,7 +3,7 @@
 
 ~~~ Core ~~~
 
-- all-set? all-list? etc.
+- xor, etc.
 
 ~~~ String ~~~
 

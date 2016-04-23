@@ -936,6 +936,94 @@ user=> (not-vector? ["here" "i" "am"])
       
 ```
 
+###kezban.string
+
+**all-lowercase?**: Checks string consists of lower case chars
+
+```clojure
+
+(use 'kezban.string)
+
+user=> (all-lowercase? "yep")
+=> true
+
+user=> (all-lowercase? "Do Me Good")
+=> false
+
+;; special chars are not treated as lower case (white spaces, commas etc.)
+user=> (all-lowercase? "hey u!!!")
+=> false
+```
+
+**all-uppercase?**: Checks string consists of upper case chars
+
+```clojure
+
+(use 'kezban.string)
+
+user=> (all-uppercase? "SPIDERMAN")
+=> true
+
+user=> (all-uppercase? "boommm")
+=> false
+
+;; special chars are not treated as upper case (white spaces, commas etc.)
+user=> (all-uppercase? "HEY O")
+=> false
+```
+
+**substring?**: Checks string-2 substring of string-1 without case sensitivity
+
+```clojure
+
+(use 'kezban.string)
+
+user=> (substring? "hey baby would u join me?" "baby")
+=> true
+
+user=> (substring? "come on dude" "dudem")
+=> false
+```
+
+**default-str**: Returns default string when str is nil/blank etc.
+
+```clojure
+
+(use 'kezban.string)
+
+user=> (default-str "" "abc")
+=> "abc"
+
+user=> (default-str "  " "def")
+=> "def"
+
+user=> (default-str nil "ghi")
+=> "ghi"
+
+user=> (default-str "klm")
+=> ""
+```
+
+**repeat-str**: Repeat a string n times to form a new string
+
+```clojure
+
+(use 'kezban.string)
+
+user=> (repeat-str 3 "ab")
+=> "ababab"
+
+user=> (repeat-str 0 "cd")
+=> ""
+
+user=> (repeat-str 5 "")
+=> ""
+
+user=> (repeat-str -1 "ef")
+=> ""
+```
+
+
 
 ## License
 ```
