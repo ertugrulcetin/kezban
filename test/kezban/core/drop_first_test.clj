@@ -1,4 +1,4 @@
-(ns kezban.drop-first-test
+(ns kezban.core.drop-first-test
   (:require [kezban.core :refer :all]
             [clojure.test :refer :all]))
 

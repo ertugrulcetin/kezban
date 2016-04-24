@@ -1,4 +1,4 @@
-(ns kezban.nth-safe-test
+(ns kezban.core.nth-safe-test
   (:require [kezban.core :refer :all]
             [clojure.test :refer :all]))
 

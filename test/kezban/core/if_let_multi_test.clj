@@ -1,4 +1,4 @@
-(ns kezban.if-let-multi-test
+(ns kezban.core.if-let-multi-test
   (:require [kezban.core :refer :all]
             [clojure.test :refer :all]))
 
