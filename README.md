@@ -1,4 +1,4 @@
-# kezban
+# kezban [![Build Status](https://travis-ci.org/ertugrulcetin/kezban.svg?branch=master)](https://travis-ci.org/ertugrulcetin/kezban)
 
 Extended Collection & Utility library for **Clojure**.
 
