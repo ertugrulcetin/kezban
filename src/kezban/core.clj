@@ -156,6 +156,16 @@
        (not (< y (first more))))
      false)))
 
+;;TODO doc will be added!
+(defn xor
+  ([] true)
+  ([x] x)
+  ([x & next]
+   (reduce #(cond
+             (if-not (or %1 %2) true) false
+             (if (and %1 %2) true) false
+             :else true) x next)))
+
 (defn any?
   [pred coll]
   ((complement not-any?) pred coll))

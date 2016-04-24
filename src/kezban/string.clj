@@ -1,5 +1,6 @@
 (ns kezban.string
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [kezban.core :as kez])
   (:import (java.util Locale)))
 
 (defn- kezban
@@ -43,3 +44,15 @@
   "Repeat a String n times to form a new String"
   [n ^CharSequence s]
   (apply str (repeat n s)))
+
+(defn any-blank?
+  [coll-str]
+  (if (empty? coll-str)
+    false
+    (kez/any? str/blank? coll-str)))
+
+(defn not-any-blank?
+  [coll-str]
+  (if (empty? coll-str)
+    false
+    (not (any-blank? coll-str))))
