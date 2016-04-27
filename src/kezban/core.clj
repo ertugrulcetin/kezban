@@ -156,6 +156,21 @@
        (not (< y (first more))))
      false)))
 
+(defn <<
+  "Bitwise shift left"
+  [x n]
+  (bit-shift-left x n))
+
+(defn >>
+  "Bitwise shift right"
+  [x n]
+  (bit-shift-right x n))
+
+(defn >>>
+  "Bitwise shift right, without sign-extension."
+  [x n]
+  (unsigned-bit-shift-right x n))
+
 ;;TODO doc will be added!
 (defn xor
   ([] true)
