@@ -3,19 +3,19 @@
             [clojure.test :refer :all]))
 
 (deftest default-str-test-truthy-with-one-arg
-  (is (= (default "kerem") "kerem"))
-  (is (= (default "can") "can")))
+  (is (= (default-str "kerem") "kerem"))
+  (is (= (default-str "can") "can")))
 
 (deftest default-str-test-truthy
-  (is (= (default "ertu" "def") "ertu"))
-  (is (= (default "can" "def") "can")))
+  (is (= (default-str "ertu" "def") "ertu"))
+  (is (= (default-str "can" "def") "can")))
 
 (deftest default-str-test-falsy-with-one-arg
-  (is (= (default nil) ""))
-  (is (= (default "") ""))
-  (is (= (default "") "")))
+  (is (= (default-str nil) ""))
+  (is (= (default-str "") ""))
+  (is (= (default-str "") "")))
 
 (deftest default-str-test-falsy
-  (is (= (default nil "def") "def"))
-  (is (= (default "" "def") "def"))
-  (is (= (default "  " "def") "def")))
+  (is (= (default-str nil "def") "def"))
+  (is (= (default-str "" "def") "def"))
+  (is (= (default-str "  " "def") "def")))
