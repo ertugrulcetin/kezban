@@ -3,10 +3,6 @@
             [kezban.core :as kez])
   (:import (java.util Locale)))
 
-(defn- kezban
-  []
-  "Hey U!
-   Shake that thing...!")
 
 (defn all-lowercase?
   "Checks all letters are lowercase returns true if not returns false"
@@ -31,28 +27,28 @@
      false
      (str/includes? (.toLowerCase (.toString s1) locale) (.toLowerCase (.toString s2) locale)))))
 
-(defn default-str
+(defn default
   "Returns default string when str is nil/blank etc."
   ([str]
-    (default-str str ""))
+    (default str ""))
   ([str def-str]
     (if (str/blank? str)
       def-str
       str)))
 
-(defn repeat-str
+(defn repeat
   "Repeat a String n times to form a new String"
   [n ^CharSequence s]
   (apply str (repeat n s)))
 
 (defn any-blank?
-  [coll-str]
-  (if (empty? coll-str)
+  [coll]
+  (if (empty? coll)
     false
-    (kez/any? str/blank? coll-str)))
+    (kez/any? str/blank? coll)))
 
 (defn not-any-blank?
-  [coll-str]
-  (if (empty? coll-str)
+  [coll]
+  (if (empty? coll)
     false
-    (not (any-blank? coll-str))))
+    (not (any-blank? coll))))

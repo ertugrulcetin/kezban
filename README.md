@@ -12,82 +12,40 @@ The library targets **Clojure 1.8** and above.
 
 ###kezban.core
 
-**when-let-multi**: Multiple binding version of **when-let**
+**when-let***: Multiple binding version of **when-let**
 
 ```clojure
 
 (use 'kezban.core)
 
-user=> (when-let-multi [a 1 b 2 c 3]
-                       (println "I'm in love with the coco")
-                       a)
+user=> (when-let* [a 1 b 2 c 3]
+                  (println "I'm in love with the coco")
+                  a)
 => "I'm in love with the coco"
 => 1
 
 ;;returns nil when one binding is nil or false
-user=> (when-let-multi [a 1 b nil c 3] 
-                              (println "Please print me!!!")
-                              a)
+user=> (when-let* [a 1 b nil c 3]
+                  (println "Please print me!!!")
+                  a)
 => nil                              
 ```
 
-**when-not-let-multi**: Not version of **when-let-multi**
+**if-let***: Multiple binding version of **if-let**
 
 ```clojure
 
 (use 'kezban.core)
 
-user=> (when-not-let-multi [a false b false c nil]
-                       1)
-=> 1
-
-;;returns nil when one binding is true(not nil)
-user=> (when-not-let-multi [a 1 b nil c 3] 
-                              (println "I'm in the dark side!!!")
-                              a)
-=> nil                              
-```
-
-**if-let-multi**: Multiple binding version of **if-let**
-
-```clojure
-
-(use 'kezban.core)
-
-user=> (if-let-multi [a 1 b 2 c 3]
-                       (* a b c))
-=> 6
+user=> (if-let* [a 1 b 2 c (+ a b)]
+                c)
+=> 3
 
 ;;returns then part when one binding is nil or false
-user=> (if-let-multi [a 1 b nil c 3] 
-                              "Nope not here"
-                              "Here I Am Baby!")
+user=> (if-let* [a 1 b nil c 3]
+                "Nope not here"
+                "Here I Am Baby!")
 => "Here I Am Baby!"         
-                 
-user=> (if-let-multi [a 1 b false c 3] 
-                              "Nope not here")
-=> nil      
-```
-
-**if-not-let-multi**: Not version of **if-let-multi**
-
-```clojure
-
-(use 'kezban.core)
-
-user=> (if-not-let-multi [a false b false c nil]
-                       "Yeap!")
-=> "Yeap!"
-
-;;returns then part when one binding is true(not nil)
-user=> (if-not-let-multi [a false b nil c 3] 
-                              "Nope not here"
-                              "Here I Am Baby!")
-=> "Here I Am Baby!"         
-                 
-user=> (if-not-let-multi [a 1 b false c 3] 
-                              "Not gonna happen")
-=> nil      
 ```
 
 **->>>**: Alternative to **->**  ,  **->>**  and  **(comp) with one arg**

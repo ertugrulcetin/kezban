@@ -13,55 +13,32 @@
           (when more
             (list* `assert-all more)))))
 
-(defn- get-secondary-values-from-vector
-  [bindings]
-  (map #(second %) (partition 2 bindings)))
-
-(defmacro when-let-multi
+(defmacro when-let*
   "Multiple binding version of when-let"
   [bindings & body]
-  (assert-all
-    (vector? bindings) "a vector for its binding"
-    (even? (count bindings)) "exactly even forms in binding vector")
-  `(let [r# (and ~@(get-secondary-values-from-vector bindings))]
-     (when r#
-       (let* ~(destructure bindings) ~@body))))
+  (when (seq bindings)
+    (assert-all
+      (vector? bindings) "a vector for its binding"
+      (even? (count bindings)) "exactly even forms in binding vector"))
+  (if (seq bindings)
+    `(when-let [~(first bindings) ~(second bindings)]
+       (when-let* ~(vec (drop 2 bindings)) ~@body))
+    `(do ~@body)))
 
-(defmacro when-not-let-multi
-  "Not version of when-let-multi"
-  [bindings & body]
-  (assert-all
-    (vector? bindings) "a vector for its binding"
-    (even? (count bindings)) "exactly even forms in binding vector")
-  `(let [r# (not (or ~@(get-secondary-values-from-vector bindings)))]
-     (when r#
-       (let* ~(destructure bindings) ~@body))))
-
-(defmacro if-let-multi
+(defmacro if-let*
   "Multiple binding version of if-let"
   ([bindings then]
-   `(if-let-multi ~bindings ~then nil))
+   `(if-let* ~bindings ~then nil))
   ([bindings then else]
-   (assert-all
-     (vector? bindings) "a vector for its binding"
-     (even? (count bindings)) "exactly even forms in binding vector")
-   `(let [temp# (and ~@(get-secondary-values-from-vector bindings))]
-      (if temp#
-        (let* ~(destructure bindings) ~then)
-        (let* ~(destructure bindings) ~else)))))
-
-(defmacro if-not-let-multi
-  "Multiple binding version of if-not"
-  ([bindings then]
-   `(if-not-let-multi ~bindings ~then nil))
-  ([bindings then else]
-   (assert-all
-     (vector? bindings) "a vector for its binding"
-     (even? (count bindings)) "exactly even forms in binding vector")
-   `(let [temp# (not (or ~@(get-secondary-values-from-vector bindings)))]
-      (if temp#
-        (let* ~(destructure bindings) ~then)
-        (let* ~(destructure bindings) ~else)))))
+   (when (seq bindings)
+     (assert-all
+       (vector? bindings) "a vector for its binding"
+       (even? (count bindings)) "exactly even forms in binding vector"))
+   (if (seq bindings)
+     `(if-let [~(first bindings) ~(second bindings)]
+        (if-let* ~(vec (drop 2 bindings)) ~then ~else)
+        ~(if-not (second bindings) else))
+     then)))
 
 (defmacro ->>>
   "Takes a set of functions and value at the end of the arguments.
@@ -287,8 +264,3 @@
 (def not-map? (complement map?))
 
 (def not-vector? (complement vector?))
-
-(defn fuck-the-system
-  "Terminates the system!"
-  []
-  (System/exit 31))
