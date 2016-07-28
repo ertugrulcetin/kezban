@@ -12,7 +12,7 @@ The library targets **Clojure 1.8** and above.
 
 ###kezban.core
 
-**when-let***: Multiple binding version of **when-let**
+** when-let* **: Multiple binding version of **when-let**
 
 ```clojure
 
