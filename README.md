@@ -31,7 +31,7 @@ user=> (when-let* [a 1 b nil c 3]
 => nil                              
 ```
 
-**if-let***: Multiple binding version of **if-let**
+**if-let***: Multiple binding version of if-let
 
 ```clojure
 
