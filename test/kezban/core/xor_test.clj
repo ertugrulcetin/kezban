@@ -29,4 +29,5 @@
   (is (= (xor false nil false nil nil true) true))
   (is (= (xor some reduce false true) true))
   (is (= (xor some reduce true) true))
-  (is (= (xor some reduce true some some) some)))
+  (is (= (xor some reduce true some some) some))
+  (is (= (xor true nil true reduce) reduce)))

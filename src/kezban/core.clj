@@ -148,7 +148,7 @@
   [x n]
   (unsigned-bit-shift-right x n))
 
-(defn falsy?
+(defn xor-result
   [x y]
   (if (and x y)
     false
@@ -162,8 +162,8 @@
    `(let [first# ~x
           second# ~(first next)]
       (if (= (count '~next) 1)
-        (falsy? first# second#)
-        (xor (falsy? first# second#) ~@(rest next))))))
+        (xor-result first# second#)
+        (xor (xor-result first# second#) ~@(rest next))))))
 
 (defmacro pprint-macro
   [form]
