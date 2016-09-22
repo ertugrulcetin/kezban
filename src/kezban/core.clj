@@ -1,10 +1,12 @@
-(ns kezban.core)
+(ns kezban.core
+  (:require [clojure.pprint :as pp]
+            [clojure.walk :as walk]))
 
 (defn- kezban
   []
   "I'M DAMN SEXY!")
 
-(defmacro assert-all
+(defmacro ^:private assert-all
   [& pairs]
   `(do (when-not ~(first pairs)
          (throw (IllegalArgumentException.
@@ -40,13 +42,14 @@
         ~(if-not (second bindings) else))
      then)))
 
+;;TODO Change doc... imp has been changed !!!!
 (defmacro ->>>
   "Takes a set of functions and value at the end of the arguments.
    Returns a result that is the composition
    of those funtions.Applies the rightmost of fns to the args(last arg is the value/input!),
-   the next fn (right-to-left) to the result, etc."
+   the next fn (left-to-right) to the result, etc."
   [& form]
-  `((comp ~@(butlast form)) ~(last form)))
+  `((comp ~@(reverse (rest form))) ~(first form)))
 
 (defn drop-first
   "Return a lazy sequence of all, except first value"
@@ -60,16 +63,13 @@
    in O(n) time, for sequences."
   ([coll n] (nth-safe coll n nil))
   ([coll n not-found]
-   (let [val (first (loop [i n
-                           result coll]
-                      (if (zero? i)
-                        result
-                        (if (neg? i)
-                          nil
-                          (recur (- i 1) (next result))))))]
-     (if (nil? val)
-       not-found
-       val))))
+   (if (neg? n)
+     not-found
+     (let [val (first (loop [i n result coll]
+                        (if (zero? i)
+                          result
+                          (recur (dec i) (rest result)))))]
+       (or val not-found)))))
 
 (defn third
   "Gets the third element from collection"
@@ -114,7 +114,7 @@
 (defn !>
   "Not version of >"
   ([x] true)
-  ([x y] (not (. clojure.lang.Numbers (gt x y))))
+  ([x y] ((complement >) x y))
   ([x y & more]
    (if (not (> x y))
      (if (next more)
@@ -148,119 +148,27 @@
   [x n]
   (unsigned-bit-shift-right x n))
 
+(defn falsy?
+  [x y]
+  (if (and x y)
+    false
+    (or x y)))
+
 ;;TODO doc will be added!
-(defn xor
+(defmacro xor
   ([] true)
   ([x] x)
   ([x & next]
-   (reduce #(cond
-             (if-not (or %1 %2) true) false
-             (if (and %1 %2) true) false
-             :else true) x next)))
+   `(let [first# ~x
+          second# ~(first next)]
+      (if (= (count '~next) 1)
+        (falsy? first# second#)
+        (xor (falsy? first# second#) ~@(rest next))))))
+
+(defmacro pprint-macro
+  [form]
+  `(pp/pprint (walk/macroexpand-all '~form)))
 
 (defn any?
   [pred coll]
   ((complement not-any?) pred coll))
-
-;;not-{fun}? Start
-(def not-nil? (complement nil?))
-
-(def not-symbol? (complement symbol?))
-
-(def not-keyword? (complement keyword?))
-
-(def not-chunked-seq? (complement chunked-seq?))
-
-(def not-delay? (complement delay?))
-
-(def not-identical? (complement identical?))
-
-(def not-zero? (complement zero?))
-
-(def not-pos? (complement pos?))
-
-(def not-neg? (complement neg?))
-
-(def not-integer? (complement integer?))
-
-(def not-even? (complement even?))
-
-(def not-odd? (complement odd?))
-
-(def not-map-entry? (complement map-entry?))
-
-(def not-contains? (complement contains?))
-
-(def not-volatile? (complement volatile?))
-
-(def not-reduced? (complement reduced?))
-
-(def not-number? (complement number?))
-
-(def not-ratio? (complement ratio?))
-
-(def not-decimal? (complement decimal?))
-
-(def not-float? (complement float?))
-
-(def not-rational? (complement rational?))
-
-(def not-set? (complement set?))
-
-(def not-special-symbol? (complement special-symbol?))
-
-(def not-var? (complement var?))
-
-(def not-class? (complement class?))
-
-(def not-bound? (complement bound?))
-
-(def not-thread-bound? (complement thread-bound?))
-
-(def not-isa? (complement isa?))
-
-(def not-distinct? (complement distinct?))
-
-(def not-empty? (complement empty?))
-
-(def not-coll? (complement coll?))
-
-(def not-list? (complement list?))
-
-(def not-ifn? (complement ifn?))
-
-(def not-fn? (complement fn?))
-
-(def not-associative? (complement associative?))
-
-(def not-sequential? (complement sequential?))
-
-(def not-sorted? (complement sorted?))
-
-(def not-counted? (complement counted?))
-
-(def not-reversible? (complement reversible?))
-
-(def not-future? (complement future?))
-
-(def not-future-done? (complement future-done?))
-
-(def not-future-cancelled? (complement future-cancelled?))
-
-(def not-realized? (complement realized?))
-
-;;TODO example will be added as soon as possible!
-(def not-tagged-literal? (complement tagged-literal?))
-
-;;TODO example will be added as soon as possible!
-(def not-reader-conditional? (complement reader-conditional?))
-
-(def not-seq? (complement seq?))
-
-(def not-char? (complement char?))
-
-(def not-string? (complement string?))
-
-(def not-map? (complement map?))
-
-(def not-vector? (complement vector?))

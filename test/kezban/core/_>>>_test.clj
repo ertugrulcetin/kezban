@@ -4,13 +4,15 @@
 
 
 (deftest ->>>-test-nil
-  (is (= (->>>) nil)))
+  (is (= (->>> ) nil)))
 
 (deftest ->>>-test-with-one-arg
   (is (= (->>> 1) 1)))
 
-(deftest ->>>-test-with-funtions-and-args
-  (is (= (->>> inc inc 1) 3))
-  (is (= (->>> inc #(* % 2) 5) 11))
-  (is (= (->>> inc second reverse '("a" 2 7 "b")) 8)))
+(deftest name
+  (testing "Deneme"
+    (is (= 1 1))))
 
+(deftest ->>>-test-with-funtions-and-args
+  (is (= (->>> 1 inc inc ) 3))
+  (is (= (->>> 5 #(+ % 1) #(* 2 %)) 12)))
