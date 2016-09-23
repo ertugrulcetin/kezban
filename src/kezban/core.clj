@@ -148,7 +148,7 @@
   [x n]
   (unsigned-bit-shift-right x n))
 
-(defn xor-result
+(defn- xor-result
   [x y]
   (if (and x y)
     false
@@ -159,11 +159,16 @@
   ([] true)
   ([x] x)
   ([x & next]
-   `(let [first# ~x
-          second# ~(first next)]
-      (if (= (count '~next) 1)
-        (xor-result first# second#)
-        (xor (xor-result first# second#) ~@(rest next))))))
+   (let [first x
+         second `(first '(~@next))
+         ;; used this eval approach because of lack of private function usage in macro!
+         result (xor-result (eval first) (eval second))]
+     `(if (= (count '~next) 1)
+        ~result
+        (xor ~result ~@(rest next))))))
+
+
+;;TODO ADD quoted? function
 
 (defmacro pprint-macro
   [form]
