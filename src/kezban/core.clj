@@ -166,6 +166,7 @@
         ~result
         (xor ~result ~@(rest next))))))
 
+;;does not support syntax-quote
 (defmacro quoted?
   [form]
   (if (coll? form)
@@ -180,4 +181,4 @@
 
 (defn any?
   [pred coll]
-  ((complement not-any?) pred coll))
+  ((complement not-any?) pred coll))gi
