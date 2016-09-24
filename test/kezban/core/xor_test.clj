@@ -37,4 +37,5 @@
   (is (= (xor some reduce true some some) some))
   (is (= (xor true nil true reduce) reduce))
   (is (= (xor (zero? 1) (zero? 0)) true))
-  (is (= (xor (zero? 1) (zero? 0) nil false) true)))
+  (is (= (xor (zero? 1) (zero? 0) nil false) true))
+  (is (= (xor (println "Ass") false true) true)))

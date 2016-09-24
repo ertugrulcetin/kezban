@@ -154,7 +154,6 @@
     false
     (or x y)))
 
-;;TODO doc will be added!
 (defmacro xor
   ([] true)
   ([x] x)
@@ -167,8 +166,13 @@
         ~result
         (xor ~result ~@(rest next))))))
 
-
-;;TODO ADD quoted? function
+(defmacro quoted?
+  [form]
+  (if (coll? form)
+    (let [f (first form)
+          s (str f)]
+      `(= "quote" ~s))
+    false))
 
 (defmacro pprint-macro
   [form]
