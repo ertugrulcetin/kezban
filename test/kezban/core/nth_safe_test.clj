@@ -23,3 +23,7 @@
   (is (= (nth-safe coll -1 "ertu") "ertu"))
   (is (= (nth-safe coll 6 "sexy") "sexy"))
   (is (= (nth-safe coll 7 "angara") "angara")))
+
+(deftest test-not-found
+  (is (= (nth-safe [false "ertu" 1] 0 "!!!") false))
+  (is (= (nth-safe [false nil 1] 1 "!!!") nil)))

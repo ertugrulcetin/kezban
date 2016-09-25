@@ -48,7 +48,7 @@
   (addition)
   (subtraction))
 
-(run-tests )
+(run-tests)
 
 (run-all-tests)
 

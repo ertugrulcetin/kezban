@@ -42,7 +42,6 @@
         ~(if-not (second bindings) else))
      then)))
 
-;;TODO Change doc... imp has been changed !!!!
 (defmacro ->>>
   "Takes a set of functions and value at the end of the arguments.
    Returns a result that is the composition
@@ -63,13 +62,11 @@
    in O(n) time, for sequences."
   ([coll n] (nth-safe coll n nil))
   ([coll n not-found]
-   (if (neg? n)
-     not-found
-     (let [val (first (loop [i n result coll]
-                        (if (zero? i)
-                          result
-                          (recur (dec i) (rest result)))))]
-       (or val not-found)))))
+   (nth coll n not-found)))
+
+(defn nnth
+  [coll index & indices]
+  (reduce #(nth-safe %1 %2) coll (cons index indices)))
 
 (defn third
   "Gets the third element from collection"
@@ -110,43 +107,6 @@
   "Gets the tenth element from collection"
   [coll]
   (nth-safe coll 9))
-
-(defn !>
-  "Not version of >"
-  ([x] true)
-  ([x y] ((complement >) x y))
-  ([x y & more]
-   (if (not (> x y))
-     (if (next more)
-       (recur y (first more) (next more))
-       (not (> y (first more))))
-     false)))
-
-(defn !<
-  "Not version of <"
-  ([x] true)
-  ([x y] (not (. clojure.lang.Numbers (lt x y))))
-  ([x y & more]
-   (if (not (< x y))
-     (if (next more)
-       (recur y (first more) (next more))
-       (not (< y (first more))))
-     false)))
-
-(defn <<
-  "Bitwise shift left"
-  [x n]
-  (bit-shift-left x n))
-
-(defn >>
-  "Bitwise shift right"
-  [x n]
-  (bit-shift-right x n))
-
-(defn >>>
-  "Bitwise shift right, without sign-extension."
-  [x n]
-  (unsigned-bit-shift-right x n))
 
 (defn- xor-result
   [x y]

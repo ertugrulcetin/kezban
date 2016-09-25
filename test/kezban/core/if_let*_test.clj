@@ -27,6 +27,3 @@
   (is (= (if-let* [a 1 b nil] a "Hmm :)") "Hmm :)"))
   (is (= (if-let* [a 1 b 2 c false] b "Let me try that") "Let me try that"))
   (is (= (if-let* [a 1 b false c 3] a "I don't bite") "I don't bite")))
-
-(run-all-tests)
-;;(run-tests 'kezban.if-let*-test)
