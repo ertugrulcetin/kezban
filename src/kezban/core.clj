@@ -181,4 +181,4 @@
 
 (defn any?
   [pred coll]
-  ((complement not-any?) pred coll))gi
+  ((complement not-any?) pred coll))
