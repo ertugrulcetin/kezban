@@ -157,6 +157,15 @@
        (and (= (type->str type) (str c)) (.isArray c))
        (or (some-> c .isArray) false)))))
 
+(defmacro error?
+  "Returns true if executing body throws an error(exception, error etc.), false otherwise."
+  [& body]
+  `(try
+     ~@body
+     false
+     (catch Throwable t#
+       true)))1
+
 (defmacro pprint-macro
   [form]
   `(pp/pprint (walk/macroexpand-all '~form)))

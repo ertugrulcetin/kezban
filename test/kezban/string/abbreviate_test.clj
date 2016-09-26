@@ -10,5 +10,4 @@
   (is (thrown? IllegalArgumentException (abbreviate "abcdefghij" 5 6))))
 
 (deftest test-middle
-  (is (= "...ghij..." (abbreviate "abcdefghijklmno" 6 10)))
-  )
+  (is (= "...ghij..." (abbreviate "abcdefghijklmno" 6 10))))
