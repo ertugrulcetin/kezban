@@ -135,6 +135,28 @@
       `(= "quote" ~s))
     false))
 
+(defn- type->str
+  [type]
+  (case type
+    :char "class [C"
+    :byte "class [B"
+    :short "class [S"
+    :int "class [I"
+    :long "class [J"
+    :float "class [F"
+    :double "class [D"
+    :boolean "class [Z"
+    nil))
+
+(defn array?
+  ([arr]
+   (array? nil arr))
+  ([type arr]
+   (let [c (class arr)]
+     (if type
+       (and (= (type->str type) (str c)) (.isArray c))
+       (or (some-> c .isArray) false)))))
+
 (defmacro pprint-macro
   [form]
   `(pp/pprint (walk/macroexpand-all '~form)))

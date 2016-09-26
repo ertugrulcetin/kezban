@@ -4,19 +4,20 @@
 
 
 (deftest test-if-let*-truthy
-  (is (= (if-let* [a 1] a) 1))
+  (is (= (if-let* [a 1] a 2) 1))
+  (is (= (if-let* [a 1] a 2) 1))
   (is (= (if-let* [a 1 b 2] a) 1))
   (is (= (if-let* [a 1 b 2 c true] b) 2))
   (is (= (if-let* [a 1 b 2 c true] c) true)))
 
 (deftest test-if-let*-truthy-with-body
   (is (= (if-let* [a 1 b 2]
-                       (do
-                         (println "Hey Handsome!")
-                         (* a b))) 2))
+                  (do
+                    (println "Hey Handsome!")
+                    (* a b))) 2))
 
   (is (= (if-let* [a 1 b 3 c true]
-                       "Good girl!") "Good girl!")))
+                  "Good girl!") "Good girl!")))
 
 (deftest test-if-let*-falsy
   (is (= (if-let* [a 1 b nil] a) nil))
