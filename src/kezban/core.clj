@@ -127,6 +127,10 @@
         ~result
         (xor ~result ~@(rest next))))))
 
+(defmacro pprint-macro
+  [form]
+  `(pp/pprint (walk/macroexpand-all '~form)))
+
 ;;does not support syntax-quote
 (defmacro quoted?
   [form]
@@ -170,10 +174,6 @@
 (defn lazy?
   [x]
   (= "class clojure.lang.LazySeq" (str (type x))))
-
-(defmacro pprint-macro
-  [form]
-  `(pp/pprint (walk/macroexpand-all '~form)))
 
 (defn any?
   [pred coll]
