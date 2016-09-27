@@ -60,7 +60,8 @@
    bounds,unlike nth nth-safe does not throw an exception, returns nil instead.nth-safe
    also works for strings, Java arrays, regex Matchers and Lists, and,
    in O(n) time, for sequences."
-  ([coll n] (nth-safe coll n nil))
+  ([coll n]
+   (nth-safe coll n nil))
   ([coll n not-found]
    (nth coll n not-found)))
 
@@ -164,7 +165,7 @@
      ~@body
      false
      (catch Throwable t#
-       true)))1
+       true))) 1
 
 (defmacro pprint-macro
   [form]
