@@ -165,7 +165,7 @@
      ~@body
      false
      (catch Throwable t#
-       true))) 1
+       true)))
 
 (defmacro pprint-macro
   [form]
