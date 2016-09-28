@@ -138,34 +138,6 @@ user=> (tenth coll)
    
 ```
 
-**!>**: Not version of **>**
-
-```clojure
-
-(use 'kezban.core)
-
-user=> (!> 1 2)
-=> true
-
-user=> (!> 2 1)
-=> false
-   
-```
-
-**!<**: Not version of **<**
-
-```clojure
-
-(use 'kezban.core)
-
-user=> (!< 2 1)
-=> true
-
-user=> (!< 1 2)
-=> false
-   
-```
-
 **any?**: reverse logic of **not-any?**
 
 ```clojure
