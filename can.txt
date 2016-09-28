@@ -1,1 +1,0 @@
-"Elapsed time: 0.064311 msecs"
