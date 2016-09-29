@@ -131,6 +131,10 @@
   [form]
   `(pp/pprint (walk/macroexpand-all '~form)))
 
+(defn eval-when
+  [test form]
+  (when test (eval form)))
+
 ;;does not support syntax-quote
 (defmacro quoted?
   [form]
