@@ -39,7 +39,7 @@
    (if (seq bindings)
      `(if-let [~(first bindings) ~(second bindings)]
         (if-let* ~(vec (drop 2 bindings)) ~then ~else)
-        ~(if-not (second bindings) else))
+        ~else)
      then)))
 
 (defmacro ->>>
@@ -135,6 +135,14 @@
   [test form]
   (when test (eval form)))
 
+(defn has-ns?
+  [ns]
+  (try
+    (the-ns ns)
+    true
+    (catch Exception e
+      false)))
+
 ;;does not support syntax-quote
 (defmacro quoted?
   [form]
@@ -182,3 +190,11 @@
 (defn any?
   [pred coll]
   ((complement not-any?) pred coll))
+
+(defn ?
+  [x]
+  (if x true false))
+
+(defn any-pred
+  [& preds]
+  (complement (apply every-pred (map complement preds))))
