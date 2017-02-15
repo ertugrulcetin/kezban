@@ -6,7 +6,7 @@ The library targets **Clojure 1.8** and above.
 
 ##Leiningen
 
-[![Clojars Project](https://img.shields.io/clojars/v/kezban.svg)](https://clojars.org/kezban)
+[![Clojars Project](https://clojars.org/kezban/kezban/latest-version.svg)](https://clojars.org/kezban)
 
 ## Usage
 
