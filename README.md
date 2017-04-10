@@ -1,16 +1,16 @@
 # kezban [![Build Status](https://travis-ci.org/ertugrulcetin/kezban.svg?branch=master)](https://travis-ci.org/ertugrulcetin/kezban) [![GitHub License](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/ertugrulcetin/kezban/blob/master/LICENSE)
 
-Extended Collection & Utility library for **Clojure**.
+Utility library for **Clojure**.
 
 The library targets **Clojure 1.8** and above.
 
-##Leiningen
+## Leiningen
 
 [![Clojars Project](https://clojars.org/kezban/kezban/latest-version.svg)](https://clojars.org/kezban)
 
 ## Usage
 
-###kezban.core
+### kezban.core
 
 **when-let***: Multiple binding version of when-let
 
