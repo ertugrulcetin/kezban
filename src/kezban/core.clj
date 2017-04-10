@@ -198,3 +198,17 @@
 (defn any-pred
   [& preds]
   (complement (apply every-pred (map complement preds))))
+
+(defmacro try->
+  [x & forms]
+  `(try
+     (-> ~x ~@forms)
+     (catch Throwable _#
+       nil)))
+
+(defmacro try->>
+  [x & forms]
+  `(try
+     (->> ~x ~@forms)
+     (catch Throwable _#
+       nil)))
