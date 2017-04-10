@@ -140,7 +140,7 @@
   (try
     (the-ns ns)
     true
-    (catch Exception e
+    (catch Exception _
       false)))
 
 ;;does not support syntax-quote
@@ -180,7 +180,7 @@
   `(try
      ~@body
      false
-     (catch Throwable t#
+     (catch Throwable _#
        true)))
 
 (defn lazy?
