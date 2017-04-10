@@ -212,3 +212,15 @@
      (->> ~x ~@forms)
      (catch Throwable _#
        nil)))
+
+(defn multi-comp
+  ([fns a b]
+    (multi-comp fns < a b))
+  ([[f & others :as fns] order a b]
+    (if (seq fns)
+      (let [result (compare (f a) (f b))
+            f-result (if (= order >) (* -1 result) result)]
+        (if (= 0 f-result)
+          (recur others order a b)
+          f-result))
+      0)))
