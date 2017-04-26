@@ -203,15 +203,13 @@
   [x & forms]
   `(try
      (-> ~x ~@forms)
-     (catch Throwable _#
-       nil)))
+     (catch Throwable _#)))
 
 (defmacro try->>
   [x & forms]
   `(try
      (->> ~x ~@forms)
-     (catch Throwable _#
-       nil)))
+     (catch Throwable _#))
 
 (defn multi-comp
   ([fns a b]
