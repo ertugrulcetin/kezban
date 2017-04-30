@@ -222,3 +222,11 @@
           (recur others order a b)
           f-result))
       0)))
+
+(defmacro with-out-str-data-map
+  [& body]
+  `(let [s# (new java.io.StringWriter)]
+     (binding [*out* s#]
+       (let [r# ~@body]
+         {:result r#
+          :str    (str s#)}))))
