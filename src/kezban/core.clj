@@ -231,14 +231,12 @@
          {:result r#
           :str    (str s#)}))))
 
-
 (defmacro letm
   [bindings]
   (assert-args
     (vector? bindings) "a vector for its binding"
     (even? (count bindings)) "an even number of forms in binding vector")
-  `(let* ~(destructure bindings)
-     (assoc {} ~@(map-indexed (fn [i# v#]
-                                (if (even? i#)
-                                  (keyword (nth bindings i#))
-                                  (nth bindings i#))) bindings))))
+  `(assoc {} ~@(map-indexed (fn [i# v#]
+                              (if (even? i#)
+                                (keyword (nth bindings i#))
+                                (nth bindings i#))) bindings)))
