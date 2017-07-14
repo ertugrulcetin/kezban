@@ -237,4 +237,4 @@
     (vector? bindings) "a vector for its binding"
     (even? (count bindings)) "an even number of forms in binding vector")
   `(let* ~(destructure bindings)
-     (merge ~@(map #(hash-map (keyword %) %) (filter #(symbol? %) bindings)))))
+     (merge ~@(map #(hash-map (keyword %) %) (take-nth 2 bindings)))))
