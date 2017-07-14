@@ -119,7 +119,7 @@
   ([] true)
   ([x] x)
   ([x & next]
-   (let [first x
+   (let [first  x
          second `(first '(~@next))
          ;; used this eval approach because of lack of private function usage in macro!
          result (xor-result (eval first) (eval second))]
@@ -213,15 +213,15 @@
 
 (defn multi-comp
   ([fns a b]
-    (multi-comp fns < a b))
+   (multi-comp fns < a b))
   ([[f & others :as fns] order a b]
-    (if (seq fns)
-      (let [result (compare (f a) (f b))
-            f-result (if (= order >) (* -1 result) result)]
-        (if (= 0 f-result)
-          (recur others order a b)
-          f-result))
-      0)))
+   (if (seq fns)
+     (let [result   (compare (f a) (f b))
+           f-result (if (= order >) (* -1 result) result)]
+       (if (= 0 f-result)
+         (recur others order a b)
+         f-result))
+     0)))
 
 (defmacro with-out-str-data-map
   [& body]
@@ -236,7 +236,5 @@
   (assert-args
     (vector? bindings) "a vector for its binding"
     (even? (count bindings)) "an even number of forms in binding vector")
-  `(assoc {} ~@(map-indexed (fn [i# v#]
-                              (if (even? i#)
-                                (keyword (nth bindings i#))
-                                (nth bindings i#))) bindings)))
+  `(let* ~(destructure bindings)
+     (merge ~@(map #(hash-map (keyword %) %) (filter #(symbol? %) bindings)))))
