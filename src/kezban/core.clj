@@ -233,7 +233,7 @@
 
 (defmacro letm
   [bindings]
-  (assert-args
+  (assert-all
     (vector? bindings) "a vector for its binding"
     (even? (count bindings)) "an even number of forms in binding vector")
   `(let* ~(destructure bindings)
