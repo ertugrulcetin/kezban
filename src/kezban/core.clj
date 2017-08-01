@@ -238,3 +238,12 @@
     (even? (count bindings)) "an even number of forms in binding vector")
   `(let* ~(destructure bindings)
      (merge ~@(map #(hash-map (keyword %) %) (take-nth 2 bindings)))))
+
+(defn in?
+  [x coll]
+  (some #(= x %) coll))
+
+(defn take-while-and-n-more
+  [pred n coll]
+  (let [[head tail] (split-with pred coll)]
+    (concat head (take n tail))))
