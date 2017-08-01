@@ -241,7 +241,7 @@
 
 (defn in?
   [x coll]
-  (some #(= x %) coll))
+  (boolean (some #(= x %) coll)))
 
 (defn take-while-and-n-more
   [pred n coll]
