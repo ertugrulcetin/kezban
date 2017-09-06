@@ -27,6 +27,16 @@
        (when-let* ~(vec (drop 2 bindings)) ~@body))
     `(do ~@body)))
 
+(defmacro with-err-str
+  "Evaluates exprs in a context in which *err* is bound to a fresh
+  StringWriter.  Returns the string created by any nested printing
+  calls."
+  [& body]
+  `(let [s# (new java.io.StringWriter)]
+     (binding [*err* s#]
+       (eval (do '~@body))
+       (str s#))))
+
 (defmacro if-let*
   "Multiple binding version of if-let"
   ([bindings then]
