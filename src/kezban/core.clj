@@ -2,9 +2,8 @@
   (:require [clojure.pprint :as pp]
             [clojure.walk :as walk]))
 
-(defn- kezban
-  []
-  "I'M DAMN SEXY!")
+(def ^:private kezban "I'M DAMN SEXY!")
+
 
 (defmacro ^:private assert-all
   [& pairs]
@@ -14,6 +13,7 @@
        ~(let [more (nnext pairs)]
           (when more
             (list* `assert-all more)))))
+
 
 (defmacro when-let*
   "Multiple binding version of when-let"
@@ -26,6 +26,7 @@
     `(when-let [~(first bindings) ~(second bindings)]
        (when-let* ~(vec (drop 2 bindings)) ~@body))
     `(do ~@body)))
+
 
 (defmacro if-let*
   "Multiple binding version of if-let"
@@ -42,6 +43,7 @@
         ~else)
      then)))
 
+
 (defmacro ->>>
   "Takes a set of functions and value at the end of the arguments.
    Returns a result that is the composition
@@ -50,10 +52,12 @@
   [& form]
   `((comp ~@(reverse (rest form))) ~(first form)))
 
+
 (defn drop-first
   "Return a lazy sequence of all, except first value"
   [coll]
   (drop 1 coll))
+
 
 (defn nth-safe
   "Returns the value at the index. get returns nil if index out of
@@ -65,55 +69,66 @@
   ([coll n not-found]
    (nth coll n not-found)))
 
+
 (defn nnth
   [coll index & indices]
   (reduce #(nth-safe %1 %2) coll (cons index indices)))
+
 
 (defn third
   "Gets the third element from collection"
   [coll]
   (nth-safe coll 2))
 
+
 (defn fourth
   "Gets the fourth element from collection"
   [coll]
   (nth-safe coll 3))
+
 
 (defn fifth
   "Gets the fifth element from collection"
   [coll]
   (nth-safe coll 4))
 
+
 (defn sixth
   "Gets the sixth element from collection"
   [coll]
   (nth-safe coll 5))
+
 
 (defn seventh
   "Gets the seventh element from collection"
   [coll]
   (nth-safe coll 6))
 
+
 (defn eighth
   "Gets the eighth element from collection"
   [coll]
   (nth-safe coll 7))
+
 
 (defn ninth
   "Gets the ninth element from collection"
   [coll]
   (nth-safe coll 8))
 
+
 (defn tenth
   "Gets the tenth element from collection"
   [coll]
   (nth-safe coll 9))
+
 
 (defn- xor-result
   [x y]
   (if (and x y)
     false
     (or x y)))
+
 
 (defmacro xor
   ([] true)
@@ -127,13 +142,16 @@
         ~result
         (xor ~result ~@(rest next))))))
 
+
 (defmacro pprint-macro
   [form]
   `(pp/pprint (walk/macroexpand-all '~form)))
 
+
 (defn eval-when
   [test form]
   (when test (eval form)))
+
 
 (defn has-ns?
   [ns]
@@ -143,6 +161,7 @@
     (catch Exception _
       false)))
 
+
 ;;does not support syntax-quote
 (defmacro quoted?
   [form]
@@ -151,6 +170,7 @@
           s (str f)]
       `(= "quote" ~s))
     false))
+
 
 (defn- type->str
   [type]
@@ -165,6 +185,7 @@
     :boolean "class [Z"
     nil))
 
+
 (defn array?
   ([arr]
    (array? nil arr))
@@ -173,6 +194,7 @@
      (if type
        (and (= (type->str type) (str c)) (.isArray c))
        (or (some-> c .isArray) false)))))
+
 
 (defmacro error?
   "Returns true if executing body throws an error(exception, error etc.), false otherwise."
@@ -183,21 +205,26 @@
      (catch Throwable _#
        true)))
 
+
 (defn lazy?
   [x]
   (= "class clojure.lang.LazySeq" (str (type x))))
+
 
 (defn any?
   [pred coll]
   ((complement not-any?) pred coll))
 
+
 (defn ?
   [x]
   (if x true false))
 
+
 (defn any-pred
   [& preds]
   (complement (apply every-pred (map complement preds))))
+
 
 (defmacro try->
   [x & forms]
@@ -205,11 +232,13 @@
      (-> ~x ~@forms)
      (catch Throwable _#)))
 
+
 (defmacro try->>
   [x & forms]
   `(try
      (->> ~x ~@forms)
      (catch Throwable _#)))
+
 
 (defn multi-comp
   ([fns a b]
@@ -223,6 +252,7 @@
          f-result))
      0)))
 
+
 (defmacro with-out-str-data-map
   [& body]
   `(let [s# (new java.io.StringWriter)]
@@ -230,6 +260,7 @@
        (let [r# ~@body]
          {:result r#
           :str    (str s#)}))))
+
 
 (defmacro with-err-str
   "Evaluates exprs in a context in which *err* is bound to a fresh
@@ -241,6 +272,7 @@
        (eval '(do ~@body))
        (str s#))))
 
+
 (defmacro letm
   [bindings]
   (assert-all
@@ -249,9 +281,11 @@
   `(let* ~(destructure bindings)
      (merge ~@(map #(hash-map (keyword %) %) (take-nth 2 bindings)))))
 
+
 (defn in?
   [x coll]
   (boolean (some #(= x %) coll)))
+
 
 (defn take-while-and-n-more
   [pred n coll]
