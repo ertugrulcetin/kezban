@@ -1,6 +1,7 @@
 (ns kezban.core
   (:require [clojure.pprint :as pp]
-            [clojure.walk :as walk]))
+            [clojure.walk :as walk])
+  (:import (java.io StringWriter)))
 
 (def ^:private kezban "I'M DAMN SEXY!")
 
@@ -216,11 +217,6 @@
   ((complement not-any?) pred coll))
 
 
-(defn ?
-  [x]
-  (if x true false))
-
-
 (defn any-pred
   [& preds]
   (complement (apply every-pred (map complement preds))))
@@ -255,7 +251,7 @@
 
 (defmacro with-out-str-data-map
   [& body]
-  `(let [s# (new java.io.StringWriter)]
+  `(let [s# (StringWriter.)]
      (binding [*out* s#]
        (let [r# ~@body]
          {:result r#
@@ -263,11 +259,8 @@
 
 
 (defmacro with-err-str
-  "Evaluates exprs in a context in which *err* is bound to a fresh
-  StringWriter.  Returns the string created by any nested printing
-  calls."
   [& body]
-  `(let [s# (new java.io.StringWriter)]
+  `(let [s# (StringWriter.)]
      (binding [*err* s#]
        (eval '(do ~@body))
        (str s#))))
