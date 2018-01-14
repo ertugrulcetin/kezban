@@ -284,3 +284,8 @@
   [pred n coll]
   (let [[head tail] (split-with pred coll)]
     (concat head (take n tail))))
+
+
+(defmacro def-
+  [name x]
+  (list `def (with-meta name (assoc (meta name) :private true)) x))
