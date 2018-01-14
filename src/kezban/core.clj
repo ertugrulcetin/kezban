@@ -156,11 +156,7 @@
 
 (defn has-ns?
   [ns]
-  (try
-    (the-ns ns)
-    true
-    (catch Exception _
-      false)))
+  (boolean (find-ns ns)))
 
 
 ;;does not support syntax-quote
