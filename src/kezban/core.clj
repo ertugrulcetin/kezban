@@ -3,8 +3,6 @@
             [clojure.walk :as walk])
   (:import (java.io StringWriter)))
 
-(def ^:private kezban "I'M DAMN SEXY!")
-
 
 (defmacro ^:private assert-all
   [& pairs]
@@ -14,6 +12,16 @@
        ~(let [more (nnext pairs)]
           (when more
             (list* `assert-all more)))))
+
+
+(defmacro def-
+  [name x]
+  (list `def (with-meta name (assoc (meta name) :private true)) x))
+
+
+(defmacro defonce-
+  [name x]
+  (list `defonce (with-meta name (assoc (meta name) :private true)) x))
 
 
 (defmacro when-let*
@@ -280,14 +288,3 @@
   [pred n coll]
   (let [[head tail] (split-with pred coll)]
     (concat head (take n tail))))
-
-
-(defmacro def-
-  [name x]
-  (list `def (with-meta name (assoc (meta name) :private true)) x))
-
-
-(defmacro defonce-
-  [name x]
-  (list `defonce (with-meta name (assoc (meta name) :private true)) x))
-
