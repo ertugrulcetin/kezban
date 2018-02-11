@@ -135,7 +135,7 @@
   ([] true)
   ([x] x)
   ([x & next]
-   (let [first  x
+   (let [first x
          second `(first '(~@next))
          ;; used this eval approach because of lack of private function usage in macro!
          result (xor-result (eval first) (eval second))]
@@ -152,11 +152,6 @@
 (defn eval-when
   [test form]
   (when test (eval form)))
-
-
-(defn has-ns?
-  [ns]
-  (boolean (find-ns ns)))
 
 
 ;;does not support syntax-quote
@@ -232,12 +227,17 @@
      (catch Throwable _#)))
 
 
+(defn has-ns?
+  [ns]
+  (boolean (try-> ns find-ns)))
+
+
 (defn multi-comp
   ([fns a b]
    (multi-comp fns < a b))
   ([[f & others :as fns] order a b]
    (if (seq fns)
-     (let [result   (compare (f a) (f b))
+     (let [result (compare (f a) (f b))
            f-result (if (= order >) (* -1 result) result)]
        (if (= 0 f-result)
          (recur others order a b)
