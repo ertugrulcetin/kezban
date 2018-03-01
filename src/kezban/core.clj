@@ -1,7 +1,8 @@
 (ns kezban.core
   (:require [clojure.pprint :as pp]
             [clojure.walk :as walk])
-  (:import (java.io StringWriter)))
+  (:import (java.io StringWriter)
+           (java.util.concurrent TimeoutException)))
 
 
 (defmacro ^:private assert-all
@@ -304,3 +305,15 @@
    (if-let [[ks' & kss] (seq kss)]
      (recur (dissoc-in m ks) ks' kss)
      (dissoc-in m ks))))
+
+
+(defmacro with-timeout
+  [msec & body]
+  `(let [f#      (future (do ~@body))
+         v#      (gensym)
+         result# (deref f# ~msec v#)]
+     (if (= v# result#)
+       (do
+         (future-cancel f#)
+         (throw (TimeoutException. (str "Operation took more than " ~msec " milli seconds."))))
+       result#)))
