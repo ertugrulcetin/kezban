@@ -1,8 +1,10 @@
 (ns kezban.core
   (:require [clojure.pprint :as pp]
-            [clojure.walk :as walk])
+            [clojure.walk :as walk]
+            [clojure.java.io :as io])
   (:import (java.io StringWriter)
-           (java.util.concurrent TimeoutException TimeUnit)))
+           (java.util.concurrent TimeoutException TimeUnit)
+           (java.net URL)))
 
 
 (defmacro ^:private assert-all
@@ -310,3 +312,13 @@
 (defmacro with-timeout
   [msec & body]
   `(.get (future ~@body) ~msec TimeUnit/MILLISECONDS))
+
+
+(defn url->file
+  [src f]
+  (let [source (URL. src)
+        dest   f]
+    (with-open [i (.openStream source)
+                o (io/output-stream dest)]
+      (io/copy i o))
+    dest))
