@@ -13,3 +13,4 @@ pom.xml.asc
 *.iml
 resources/
 test/kezban/test_framework.clj
+.DS_Store
