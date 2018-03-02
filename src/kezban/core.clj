@@ -2,7 +2,7 @@
   (:require [clojure.pprint :as pp]
             [clojure.walk :as walk])
   (:import (java.io StringWriter)
-           (java.util.concurrent TimeoutException)))
+           (java.util.concurrent TimeoutException TimeUnit)))
 
 
 (defmacro ^:private assert-all
@@ -144,7 +144,7 @@
   ([] true)
   ([x] x)
   ([x & next]
-   (let [first x
+   (let [first  x
          second `(first '(~@next))
          ;; used this eval approach because of lack of private function usage in macro!
          result (xor-result (eval first) (eval second))]
@@ -246,7 +246,7 @@
    (multi-comp fns < a b))
   ([[f & others :as fns] order a b]
    (if (seq fns)
-     (let [result (compare (f a) (f b))
+     (let [result   (compare (f a) (f b))
            f-result (if (= order >) (* -1 result) result)]
        (if (= 0 f-result)
          (recur others order a b)
@@ -309,11 +309,4 @@
 
 (defmacro with-timeout
   [msec & body]
-  `(let [f#      (future (do ~@body))
-         v#      (gensym)
-         result# (deref f# ~msec v#)]
-     (if (= v# result#)
-       (do
-         (future-cancel f#)
-         (throw (TimeoutException. (str "Operation took more than " ~msec " milli seconds."))))
-       result#)))
+  `(.get (future ~@body) ~msec TimeUnit/MILLISECONDS))
