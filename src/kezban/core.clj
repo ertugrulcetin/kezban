@@ -316,9 +316,8 @@
 
 (defn url->file
   [src f]
-  (let [source (URL. src)
-        dest   f]
+  (let [source (URL. src)]
     (with-open [i (.openStream source)
-                o (io/output-stream dest)]
+                o (io/output-stream f)]
       (io/copy i o))
-    dest))
+    f))
