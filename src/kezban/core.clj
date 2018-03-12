@@ -22,11 +22,6 @@
   (list `def (with-meta name (assoc (meta name) :private true)) x))
 
 
-(defmacro defonce-
-  [name x]
-  (list `defonce (with-meta name (assoc (meta name) :private true)) x))
-
-
 (defmacro when-let*
   "Multiple binding version of when-let"
   [bindings & body]
