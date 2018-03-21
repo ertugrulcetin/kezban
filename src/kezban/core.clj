@@ -316,3 +316,12 @@
                 o (io/output-stream f)]
       (io/copy i o))
     f))
+
+
+(defmacro cond-let
+  [bindings & forms]
+  (assert-all
+    (vector? bindings) "a vector for its binding"
+    (even? (count bindings)) "an even number of forms in binding vector")
+  `(let* ~(destructure bindings)
+     (cond ~@forms)))
