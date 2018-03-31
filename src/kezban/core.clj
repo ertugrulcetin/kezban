@@ -325,3 +325,12 @@
     (even? (count bindings)) "an even number of forms in binding vector")
   `(let* ~(destructure bindings)
      (cond ~@forms)))
+
+
+(defn keywordize
+  [s]
+  (-> s
+      str/lower-case
+      str/trim
+      (str/replace  #"\s+" "-")
+      keyword))
