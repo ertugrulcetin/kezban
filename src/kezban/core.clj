@@ -5,7 +5,8 @@
             [clojure.java.io :as io])
   (:import (java.io StringWriter)
            (java.util.concurrent TimeoutException TimeUnit)
-           (java.net URL)))
+           (java.net URL)
+           (clojure.lang RT)))
 
 
 (defmacro ^:private assert-all
@@ -333,5 +334,18 @@
   (-> s
       str/lower-case
       str/trim
-      (str/replace  #"\s+" "-")
+      (str/replace #"\s+" "-")
       keyword))
+
+
+(defn source-clj-file
+  [ns]
+  (require ns)
+  (some->> ns
+           ns-publics
+           vals
+           first
+           meta
+           :file
+           (.getResourceAsStream (RT/baseLoader))
+           slurp))
