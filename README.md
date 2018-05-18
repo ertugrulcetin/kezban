@@ -12,11 +12,14 @@ The library targets **Clojure 1.8** and above.
 
 ### kezban.core
 
+```clojure
+;;use kezban.core
+(use 'kezban.core)
+```
+
 **when-let***: Multiple binding version of when-let
 
 ```clojure
-
-(use 'kezban.core)
 
 user=> (when-let* [a 1 b 2 c 3]
                   (println "I'm in love with the coco")
@@ -35,8 +38,6 @@ user=> (when-let* [a 1 b nil c 3]
 
 ```clojure
 
-(use 'kezban.core)
-
 user=> (if-let* [a 1 b 2 c (+ a b)]
                 c)
 => 3
@@ -51,8 +52,6 @@ user=> (if-let* [a 1 b nil c 3]
 **->>>**: Alternative to **->**  ,  **->>**  and  **(comp) with one arg**
 
 ```clojure
-
-(use 'kezban.core)
 
 ;;Applying Left-To-Right
 ;;First Argument has to be a value(input)!
@@ -75,8 +74,6 @@ user=> (->>> '("a" 2 8 "b") reverse second inc) ;;'("a" 2 8 "b") is the input
 
 ```clojure
 
-(use 'kezban.core)
-
 user=> (drop-first [1 2 3])
 => (2 3)
 
@@ -88,8 +85,6 @@ user=> (drop-first [])
 **nth-safe**: safe version of **nth**
 
 ```clojure
-
-(use 'kezban.core)
 
 (def coll [1 2 3 4 5])
 
@@ -104,11 +99,18 @@ user=> (nth-safe coll 12 "gimme more!")
    
 ```
 
-**third, fourth, fifth, sixth, seventh, eighth, ninth, tenth**: addition to **first and second**
+**nnth**: nested version of **nth**
 
 ```clojure
 
-(use 'kezban.core)
+(nnth [1 [2 3 [4 5]]] 1 2 1)
+=> 5
+
+```
+
+**third, fourth, fifth, sixth, seventh, eighth, ninth, tenth**: addition to **first and second**
+
+```clojure
 
 (def coll [1 2 3 4 5 6 7 8 9 10])
 
@@ -142,8 +144,6 @@ user=> (tenth coll)
 
 ```clojure
 
-(use 'kezban.core)
-
 (def mixed [1 2 3 4 5 6 7 8])
 
 (def only-odds [1 3 5 7 9])
@@ -154,6 +154,17 @@ user=> (any? odd? mixed)
 user=> (any? even? only-odds)
 => false
    
+```
+
+**def-**: default version of **def**
+```clojure
+
+(def- my-coll [1 2 3])
+=> #'kezban.core/my-coll
+
+(:private (meta #'kezban.core/my-coll))
+=> true
+
 ```
 
 
