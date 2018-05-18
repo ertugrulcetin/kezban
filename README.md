@@ -161,6 +161,27 @@ user=> (any? even? only-odds)
 => true
 ```
 
+**xor**
+```clojure
+
+(xor false true nil)
+=> true
+
+(xor false nil)
+=> nil
+```
+
+**pprint-macro**
+```clojure
+
+(pprint-macro (when-let [a 1]
+                (println a)))
+(let*
+ [temp__4657__auto__ 1]
+ (if temp__4657__auto__ (do (let* [a temp__4657__auto__] (println a)))))
+=> nil
+```
+
 
 ## License
 ```
