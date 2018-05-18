@@ -79,7 +79,6 @@ user=> (drop-first [1 2 3])
 
 user=> (drop-first [])
 => ()
-   
 ```
 
 **nth-safe**: safe version of **nth**
@@ -96,7 +95,6 @@ user=> (nth-safe coll 12)
 
 user=> (nth-safe coll 12 "gimme more!")
 => "gimme more!"
-   
 ```
 
 **nnth**: nested version of **nth**
@@ -105,7 +103,6 @@ user=> (nth-safe coll 12 "gimme more!")
 
 (nnth [1 [2 3 [4 5]]] 1 2 1)
 => 5
-
 ```
 
 **third, fourth, fifth, sixth, seventh, eighth, ninth, tenth**: addition to **first and second**
@@ -137,7 +134,6 @@ user=> (ninth coll)
 
 user=> (tenth coll)
 => 10
-   
 ```
 
 **any?**: reverse logic of **not-any?**
@@ -153,7 +149,6 @@ user=> (any? odd? mixed)
 
 user=> (any? even? only-odds)
 => false
-   
 ```
 
 **def-**: default version of **def**
@@ -164,7 +159,6 @@ user=> (any? even? only-odds)
 
 (:private (meta #'kezban.core/my-coll))
 => true
-
 ```
 
 
