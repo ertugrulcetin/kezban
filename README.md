@@ -182,10 +182,18 @@ user=> (any? even? only-odds)
 => nil
 ```
 
+**eval-when**
+```clojure
+
+(eval-when (= 1 1) '(println "Hi"))
+Hi
+=> nil
+```
+
 
 ## License
 ```
-  Copyright © 2016 Ertuğrul Çetin
+  Copyright © 2018 Ertuğrul Çetin
   
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
