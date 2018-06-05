@@ -4,7 +4,7 @@
             [clojure.string :as str]
             [clojure.java.io :as io])
   (:import (java.io StringWriter)
-           (java.util.concurrent TimeoutException TimeUnit)
+           (java.util.concurrent TimeUnit)
            (java.net URL)
            (clojure.lang RT)))
 
