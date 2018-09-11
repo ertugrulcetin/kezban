@@ -349,3 +349,10 @@
            :file
            (.getResourceAsStream (RT/baseLoader))
            slurp))
+
+
+(defmacro time*
+  [& forms]
+  `(time
+     (do
+       ~@forms)))
