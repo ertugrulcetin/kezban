@@ -214,6 +214,7 @@ Hi
 ```clojure
 
 (error? (throw (RuntimeException. "fail")))
+=> true
 ```
 
 **lazy?**
