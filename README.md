@@ -17,7 +17,7 @@ The library targets **Clojure 1.8** and above.
 (use 'kezban.core)
 ```
 
-**when-let***: Multiple binding version of when-let
+**when-let***
 
 ```clojure
 
@@ -34,7 +34,7 @@ user=> (when-let* [a 1 b nil c 3]
 => nil                              
 ```
 
-**if-let***: Multiple binding version of if-let
+**if-let***
 
 ```clojure
 
@@ -49,10 +49,10 @@ user=> (if-let* [a 1 b nil c 3]
 => "Here I Am Baby!"         
 ```
 
-**->>>**: Alternative to **->**  ,  **->>**  and  **(comp) with one arg**
+**->>>**
 
 ```clojure
-
+;;Alternative to **->**  ,  **->>**  and  **(comp) with one arg**
 ;;Applying Left-To-Right
 ;;First Argument has to be a value(input)!
 
@@ -70,7 +70,7 @@ user=> (->>> '("a" 2 8 "b") reverse second inc) ;;'("a" 2 8 "b") is the input
 => 9
 ```
 
-**drop-first**: derivative function of **drop**
+**drop-first**
 
 ```clojure
 
@@ -81,7 +81,7 @@ user=> (drop-first [])
 => ()
 ```
 
-**nth-safe**: safe version of **nth**
+**nth-safe**
 
 ```clojure
 
@@ -97,7 +97,7 @@ user=> (nth-safe coll 12 "gimme more!")
 => "gimme more!"
 ```
 
-**nnth**: nested version of **nth**
+**nnth**
 
 ```clojure
 
@@ -105,7 +105,7 @@ user=> (nth-safe coll 12 "gimme more!")
 => 5
 ```
 
-**third, fourth, fifth, sixth, seventh, eighth, ninth, tenth**: addition to **first and second**
+**third, fourth, fifth, sixth, seventh, eighth, ninth, tenth**
 
 ```clojure
 
@@ -136,7 +136,7 @@ user=> (tenth coll)
 => 10
 ```
 
-**any?**: reverse logic of **not-any?**
+**any?**
 
 ```clojure
 
@@ -151,7 +151,7 @@ user=> (any? even? only-odds)
 => false
 ```
 
-**def-**: default version of **def**
+**def-**
 ```clojure
 
 (def- my-coll [1 2 3])
@@ -188,6 +188,183 @@ user=> (any? even? only-odds)
 (eval-when (= 1 1) '(println "Hi"))
 Hi
 => nil
+```
+
+**quoted?**
+```clojure
+
+(quoted? '(+ 1  2))
+=> true
+
+(quoted? (+ 1  2))
+=> false
+```
+
+**array?**
+```clojure
+
+(array? (int-array 1))
+=> true
+
+(array? :int (int-array 1))
+=> true
+```
+
+**error?**
+```clojure
+
+(error? (throw (RuntimeException. "fail")))
+```
+
+**lazy?**
+```clojure
+
+(lazy? (map inc [1 2 3]))
+=> true
+```
+
+**any?**
+```clojure
+
+(any? odd? [2 4 5])
+=> true
+```
+
+**any-pred**
+```clojure
+
+(filter (any-pred even? odd?) [2 4 5 7])
+=> (2 4 5 7)
+```
+
+**try-> and try->>**
+```clojure
+
+(try-> 5 inc dec str inc) ;;also thread last version: try->>
+=> nil
+```
+
+**has-ns?**
+```clojure
+
+(has-ns? 'ns-does-not-exist)
+=> false
+```
+
+**multi-comp**
+```clojure
+
+(def data [{:v 12, :a 10} {:v 21, :a 113} {:v 1, :a 2} {:v 12, :a 223} {:v 100, :a 23} {:v 1, :a 113}])
+
+(sort #(multi-comp [:a :v] > %1 %2) data)
+;or
+(sort #(multi-comp [:a :v] %2 %1) data)
+=> ({:v 12, :a 223} {:v 21, :a 113} {:v 1, :a 113} {:v 100, :a 23} {:v 12, :a 10} {:v 1, :a 2})
+```
+
+**with-out-str**
+```clojure
+
+(with-out-str (println "Hey!"))
+=> "Hey!\n"
+```
+
+**with-err-str**
+```clojure
+
+(with-err-str (defn + []))
+=> "WARNING: + already refers to: #'clojure.core/+ in namespace: kezban.core, being replaced by: #'kezban.core/+\n"
+```
+
+**letm**
+```clojure
+
+(letm [a 1
+       b (+ a 1)])
+=> {:a 1, :b 2}
+```
+
+**in?**
+```clojure
+
+(in? 3 [1 2 3 4])
+=> true
+```
+
+**take-while-and-n-more**
+```clojure
+
+(take-while-and-n-more even? 2 [2 4 6 7 9 13 15])
+=> (2 4 6 7 9)
+```
+
+**dissoc-in**
+```clojure
+
+(dissoc-in {:a {:b {:c 1 :d 2}}} [:a :b :d])
+=> {:a {:b {:c 1}}}
+```
+
+**with-timeout**
+```clojure
+
+(with-timeout 100
+              (Thread/sleep 1500))
+=> CompilerException java.util.concurrent.TimeoutException
+
+(with-timeout 1000
+              (Thread/sleep 500)
+              5)
+=> 5
+```
+
+**url->file**
+```clojure
+
+(url->file "http://file.url" (io/file "your file path to get content"))
+=> returns your file instance
+```
+
+**cond-let**
+```clojure
+
+(cond-let [a 5
+           b (+ a 1)]
+
+          (even? a)
+          (println "a is odd")
+
+          (even? b)
+          (println "b is even"))
+b is even
+=> nil
+```
+
+**keywordize**
+```clojure
+
+(keywordize "hey Whats Up?")
+=> :hey-whats-up?
+```
+
+**source-clj-file**
+```clojure
+
+(source-clj-file 'clojure.string)
+=> returns clojure.string's namespace source code in string
+```
+
+**time***
+```clojure
+
+;;unlike time, time* allows you to provide more than one form
+(time*
+  (dotimes [_ 1000])
+  (println "Done")
+  5)
+Done
+"Elapsed time: 0.248474 msecs"
+=> 5
 ```
 
 
