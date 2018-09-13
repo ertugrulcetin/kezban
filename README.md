@@ -52,7 +52,7 @@ user=> (if-let* [a 1 b nil c 3]
 **->>>**
 
 ```clojure
-;;Alternative to **->**  ,  **->>**  and  **(comp) with one arg**
+;;Alternative to ->  ,  ->>  and  (comp) with one arg
 ;;Applying Left-To-Right
 ;;First Argument has to be a value(input)!
 
