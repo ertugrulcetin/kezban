@@ -52,9 +52,9 @@ user=> (if-let* [a 1 b nil c 3]
 **->>>**
 
 ```clojure
-;;Alternative to ->  ,  ->>  and  (comp) with one arg
-;;Applying Left-To-Right
-;;First Argument has to be a value(input)!
+;; Alternative to ->, ->> and (comp) with one arg
+;; Applying Left-To-Right
+;; First Argument has to be a value(input)!
 
 ;; comp equivalent: ((comp #(+ 1 %) #(+ % 1) inc) 5)
 ;; standard equivalent (+ 1 (+ (inc 5) 1))
