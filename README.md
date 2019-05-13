@@ -1,6 +1,6 @@
 # kezban [![Build Status](https://travis-ci.org/ertugrulcetin/kezban.svg?branch=master)](https://travis-ci.org/ertugrulcetin/kezban) [![GitHub License](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/ertugrulcetin/kezban/blob/master/LICENSE)
 
-Utility library for **Clojure**.
+Utility library for **Clojure and ClojureScript**.
 
 The library targets **Clojure 1.8** and above.
 
