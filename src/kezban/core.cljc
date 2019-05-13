@@ -2,11 +2,12 @@
   (:require [clojure.pprint :as pp]
             [clojure.walk :as walk]
             [clojure.string :as str]
-            [clojure.java.io :as io])
-  (:import (java.io StringWriter)
-           (java.util.concurrent TimeUnit)
-           (java.net URL)
-           (clojure.lang RT)))
+            #?(:clj [clojure.java.io :as io]))
+  #?(:clj (:import
+            (java.io StringWriter)
+            (java.util.concurrent TimeUnit)
+            (java.net URL)
+            (clojure.lang RT))))
 
 
 (defmacro ^:private assert-all
@@ -139,27 +140,30 @@
     (or x y)))
 
 
-(defmacro xor
-  ([] true)
-  ([x] x)
-  ([x & next]
-   (let [first  x
-         second `(first '(~@next))
-         ;; used this eval approach because of lack of private function usage in macro!
-         result (xor-result (eval first) (eval second))]
-     `(if (= (count '~next) 1)
-        ~result
-        (xor ~result ~@(rest next))))))
+#?(:clj
+   (defmacro xor
+     ([] true)
+     ([x] x)
+     ([x & next]
+      (let [first  x
+            second `(first '(~@next))
+            ;; used this eval approach because of lack of private function usage in macro!
+            result (xor-result (eval first) (eval second))]
+        `(if (= (count '~next) 1)
+           ~result
+           (xor ~result ~@(rest next)))))))
 
 
-(defmacro pprint-macro
-  [form]
-  `(pp/pprint (walk/macroexpand-all '~form)))
+#?(:clj
+   (defmacro pprint-macro
+     [form]
+     `(pp/pprint (walk/macroexpand-all '~form))))
 
 
-(defn eval-when
-  [test form]
-  (when test (eval form)))
+#?(:clj
+   (defn eval-when
+     [test form]
+     (when test (eval form))))
 
 
 ;;does not support syntax-quote
@@ -253,21 +257,23 @@
      0)))
 
 
-(defmacro with-out-str-data-map
-  [& body]
-  `(let [s# (StringWriter.)]
-     (binding [*out* s#]
-       (let [r# ~@body]
-         {:result r#
-          :str    (str s#)}))))
+#?(:clj
+   (defmacro with-out-str-data-map
+     [& body]
+     `(let [s# (StringWriter.)]
+        (binding [*out* s#]
+          (let [r# ~@body]
+            {:result r#
+             :str    (str s#)})))))
 
 
-(defmacro with-err-str
-  [& body]
-  `(let [s# (StringWriter.)]
-     (binding [*err* s#]
-       (eval '(do ~@body))
-       (str s#))))
+#?(:clj
+   (defmacro with-err-str
+     [& body]
+     `(let [s# (StringWriter.)]
+        (binding [*err* s#]
+          (eval '(do ~@body))
+          (str s#)))))
 
 
 (defmacro letm
@@ -306,18 +312,20 @@
      (dissoc-in m ks))))
 
 
-(defmacro with-timeout
-  [msec & body]
-  `(.get (future ~@body) ~msec TimeUnit/MILLISECONDS))
+#?(:clj
+   (defmacro with-timeout
+     [msec & body]
+     `(.get (future ~@body) ~msec TimeUnit/MILLISECONDS)))
 
 
-(defn url->file
-  [src f]
-  (let [source (URL. src)]
-    (with-open [i (.openStream source)
-                o (io/output-stream f)]
-      (io/copy i o))
-    f))
+#?(:clj
+   (defn url->file
+     [src f]
+     (let [source (URL. src)]
+       (with-open [i (.openStream source)
+                   o (io/output-stream f)]
+         (io/copy i o))
+       f)))
 
 
 (defmacro cond-let
@@ -338,21 +346,23 @@
       keyword))
 
 
-(defn source-clj-file
-  [ns]
-  (require ns)
-  (some->> ns
-           ns-publics
-           vals
-           first
-           meta
-           :file
-           (.getResourceAsStream (RT/baseLoader))
-           slurp))
+#?(:clj
+   (defn source-clj-file
+     [ns]
+     (require ns)
+     (some->> ns
+              ns-publics
+              vals
+              first
+              meta
+              :file
+              (.getResourceAsStream (RT/baseLoader))
+              slurp)))
 
 
-(defmacro time*
-  [& forms]
-  `(time
-     (do
-       ~@forms)))
+#?(:clj
+   (defmacro time*
+     [& forms]
+     `(time
+        (do
+          ~@forms))))
