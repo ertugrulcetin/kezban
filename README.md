@@ -368,6 +368,16 @@ Done
 => 5
 ```
 
+**process-lazy-seq***
+```clojure
+
+(process-lazy-seq (fn [i]
+                    (println (inc i))) 10000 (range))
+                    
+;; we can process 10000 data at time and not getting OutOfMemory Exception
+```
+
+
 
 ## License
 ```

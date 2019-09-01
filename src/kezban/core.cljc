@@ -366,3 +366,11 @@
      `(time
         (do
           ~@forms))))
+
+
+(defn process-lazy-seq
+  [f threshold lazy-s]
+  (when-let [data (seq (take threshold lazy-s))]
+    (doseq [d data]
+      (f d))
+    (recur f threshold (drop threshold lazy-s))))
