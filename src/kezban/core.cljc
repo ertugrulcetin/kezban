@@ -218,7 +218,7 @@
   `(try
      ~@body
      false
-     (catch Throwable _#
+     (catch #?(:clj Throwable) #?(:cljs js/Error)  _#
        true)))
 
 
@@ -241,14 +241,14 @@
   [x & forms]
   `(try
      (-> ~x ~@forms)
-     (catch Throwable _#)))
+     (catch #?(:clj Throwable) #?(:cljs js/Error)  _#)))
 
 
 (defmacro try->>
   [x & forms]
   `(try
      (->> ~x ~@forms)
-     (catch Throwable _#)))
+     (catch #?(:clj Throwable) #?(:cljs js/Error) _#)))
 
 
 (defn has-ns?
