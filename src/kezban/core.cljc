@@ -3,21 +3,33 @@
             [clojure.walk :as walk]
             [clojure.string :as str]
             #?(:clj [clojure.java.io :as io]))
+  #?(:cljs (:require-macros [cljs.core :as core]
+                            [cljs.support :refer [assert-args]]))
   #?(:clj (:import
             (java.io StringWriter)
             (java.util.concurrent TimeUnit)
             (java.net URL)
             (clojure.lang RT))))
 
+#?(:cljs
+   (defmacro assert-all
+     "Internal - do not use!"
+     [fnname & pairs]
+     `(do (when-not ~(first pairs)
+            (throw (ex-info ~(str fnname " requires " (second pairs)) {:clojure.error/phase :macro-syntax-check})))
+          ~(let [more (nnext pairs)]
+             (when more
+               (list* `assert-all fnname more))))))
 
-(defmacro ^:private assert-all
-  [& pairs]
-  `(do (when-not ~(first pairs)
-         (throw (IllegalArgumentException.
-                  (str (first ~'&form) " requires " ~(second pairs) " in " ~'*ns* ":" (:line (meta ~'&form))))))
-       ~(let [more (nnext pairs)]
-          (when more
-            (list* `assert-all more)))))
+#?(:clj
+   (defmacro assert-all
+     [& pairs]
+     `(do (when-not ~(first pairs)
+            (throw (IllegalArgumentException.
+                     (str (first ~'&form) " requires " ~(second pairs) " in " ~'*ns* ":" (:line (meta ~'&form))))))
+          ~(let [more (nnext pairs)]
+             (when more
+               (list* `assert-all more))))))
 
 
 (defmacro def-
@@ -29,7 +41,7 @@
   "Multiple binding version of when-let"
   [bindings & body]
   (when (seq bindings)
-    (assert-all
+    (assert-all #?(:cljs when-let*)
       (vector? bindings) "a vector for its binding"
       (even? (count bindings)) "exactly even forms in binding vector"))
   (if (seq bindings)
@@ -44,7 +56,7 @@
    `(if-let* ~bindings ~then nil))
   ([bindings then else]
    (when (seq bindings)
-     (assert-all
+     (assert-all #?(:cljs if-let*)
        (vector? bindings) "a vector for its binding"
        (even? (count bindings)) "exactly even forms in binding vector"))
    (if (seq bindings)
@@ -278,7 +290,7 @@
 
 (defmacro letm
   [bindings]
-  (assert-all
+  (assert-all #?(:cljs letm)
     (vector? bindings) "a vector for its binding"
     (even? (count bindings)) "an even number of forms in binding vector")
   `(let* ~(destructure bindings)
@@ -330,7 +342,7 @@
 
 (defmacro cond-let
   [bindings & forms]
-  (assert-all
+  (assert-all #?(:cljs cond-let)
     (vector? bindings) "a vector for its binding"
     (even? (count bindings)) "an even number of forms in binding vector")
   `(let* ~(destructure bindings)
@@ -374,3 +386,8 @@
     (doseq [d data]
       (f d))
     (recur f threshold (drop threshold lazy-s))))
+
+
+(defmacro forall
+ [seq-exprs body-expr]
+ `(doall (for ~seq-exprs ~body-expr)))
