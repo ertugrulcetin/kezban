@@ -65,6 +65,19 @@
         ~else)
      then)))
 
+(defmacro cond-as->
+  [expr name & clauses]
+  (assert-all #?(:cljs cond-as->)
+              (even? (count clauses)) "exactly even forms in clauses")
+  (let [g (gensym)
+        steps (map (fn [[test step]] `(if ~test ~step ~name))
+                   (partition 2 clauses))]
+    `(let [~g ~expr
+           ~name ~g
+           ~@(interleave (repeat name) (butlast steps))]
+       ~(if (empty? steps)
+          name
+          (last steps)))))
 
 (defmacro ->>>
   "Takes a set of functions and value at the end of the arguments.

@@ -49,6 +49,16 @@ user=> (if-let* [a 1 b nil c 3]
 => "Here I Am Baby!"         
 ```
 
+**cond-as->**
+
+```clojure
+(cond-as-> 1 n
+           true (+ n 1)
+           false (+ n 2)
+           true  (+  5 n))
+=> 7
+```
+
 **->>>**
 
 ```clojure
