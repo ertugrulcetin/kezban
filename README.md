@@ -369,13 +369,11 @@ b is even
 ```clojure
 
 ;;unlike time, time* allows you to provide more than one form
-(time*
-  (dotimes [_ 1000])
-  (println "Done")
-  5)
-Done
-"Elapsed time: 0.248474 msecs"
-=> 5
+(time* 
+  (Thread/sleep 2500)
+  12)
+  
+=> {:duration 2505.328818, :result 12}
 ```
 
 **process-lazy-seq***

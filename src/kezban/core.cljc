@@ -388,9 +388,10 @@
 #?(:clj
    (defmacro time*
      [& forms]
-     `(time
-        (do
-          ~@forms))))
+     `(let [start# (. System (nanoTime))
+            ret#   (do ~@forms)]
+        {:duration (/ (double (- (. System (nanoTime)) start#)) 1000000.0)
+         :result ret#})))
 
 
 (defn process-lazy-seq
