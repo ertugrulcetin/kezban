@@ -397,7 +397,7 @@ b is even
 
 ## License
 ```
-  Copyright © 2019 Ertuğrul Çetin
+  Copyright © 2020 Ertuğrul Çetin
   
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
