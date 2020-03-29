@@ -42,8 +42,8 @@
   [bindings & body]
   (when (seq bindings)
     (assert-all #?(:cljs when-let*)
-      (vector? bindings) "a vector for its binding"
-      (even? (count bindings)) "exactly even forms in binding vector"))
+                (vector? bindings) "a vector for its binding"
+                (even? (count bindings)) "exactly even forms in binding vector"))
   (if (seq bindings)
     `(when-let [~(first bindings) ~(second bindings)]
        (when-let* ~(vec (drop 2 bindings)) ~@body))
@@ -57,8 +57,8 @@
   ([bindings then else]
    (when (seq bindings)
      (assert-all #?(:cljs if-let*)
-       (vector? bindings) "a vector for its binding"
-       (even? (count bindings)) "exactly even forms in binding vector"))
+                 (vector? bindings) "a vector for its binding"
+                 (even? (count bindings)) "exactly even forms in binding vector"))
    (if (seq bindings)
      `(if-let [~(first bindings) ~(second bindings)]
         (if-let* ~(vec (drop 2 bindings)) ~then ~else)
@@ -69,7 +69,7 @@
   [expr name & clauses]
   (assert-all #?(:cljs cond-as->)
               (even? (count clauses)) "exactly even forms in clauses")
-  (let [g (gensym)
+  (let [g     (gensym)
         steps (map (fn [[test step]] `(if ~test ~step ~name))
                    (partition 2 clauses))]
     `(let [~g ~expr
@@ -231,8 +231,8 @@
   `(try
      ~@body
      false
-     (catch #?(:clj Throwable) #?(:cljs js/Error)  _#
-       true)))
+     (catch #?(:clj Throwable) #?(:cljs js/Error) _#
+                                                  true)))
 
 
 (defn lazy?
@@ -254,7 +254,7 @@
   [x & forms]
   `(try
      (-> ~x ~@forms)
-     (catch #?(:clj Throwable) #?(:cljs js/Error)  _#)))
+     (catch #?(:clj Throwable) #?(:cljs js/Error) _#)))
 
 
 (defmacro try->>
@@ -304,8 +304,8 @@
 (defmacro letm
   [bindings]
   (assert-all #?(:cljs letm)
-    (vector? bindings) "a vector for its binding"
-    (even? (count bindings)) "an even number of forms in binding vector")
+              (vector? bindings) "a vector for its binding"
+              (even? (count bindings)) "an even number of forms in binding vector")
   `(let* ~(destructure bindings)
      (merge ~@(map #(hash-map (keyword %) %) (take-nth 2 bindings)))))
 
@@ -356,8 +356,8 @@
 (defmacro cond-let
   [bindings & forms]
   (assert-all #?(:cljs cond-let)
-    (vector? bindings) "a vector for its binding"
-    (even? (count bindings)) "an even number of forms in binding vector")
+              (vector? bindings) "a vector for its binding"
+              (even? (count bindings)) "an even number of forms in binding vector")
   `(let* ~(destructure bindings)
      (cond ~@forms)))
 
@@ -391,7 +391,7 @@
      `(let [start# (. System (nanoTime))
             ret#   (do ~@forms)]
         {:duration (/ (double (- (. System (nanoTime)) start#)) 1000000.0)
-         :result ret#})))
+         :result   ret#})))
 
 
 (defn process-lazy-seq
@@ -403,5 +403,12 @@
 
 
 (defmacro forall
- [seq-exprs body-expr]
- `(doall (for ~seq-exprs ~body-expr)))
+  [seq-exprs body-expr]
+  `(doall (for ~seq-exprs ~body-expr)))
+
+
+#?(:clj
+   (defmacro when-no-aot
+     [& body]
+     `(when-not *compile-files*
+        ~@body)))

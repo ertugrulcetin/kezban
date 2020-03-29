@@ -1,7 +1,10 @@
-(defproject kezban "0.1.87"
+(defproject kezban "0.1.88"
   :description "Utility library for Clojure(Script)"
   :license {:name "Apache License"
-            :url "http://www.apache.org/licenses/LICENSE-2.0"}
+            :url  "http://www.apache.org/licenses/LICENSE-2.0"}
   :url "https://github.com/ertugrulcetin/kezban"
   :dependencies [[org.clojure/clojure "1.10.1"]
-                 [org.clojure/clojurescript "1.10.520"]])
+                 [org.clojure/clojurescript "1.10.520"]]
+  :deploy-repositories [["clojars" {:sign-releases false :url "https://clojars.org/repo"}]
+                        ["releases" {:sign-releases false :url "https://clojars.org/repo"}]
+                        ["snapshots" {:sign-releases false :url "https://clojars.org/repo"}]])

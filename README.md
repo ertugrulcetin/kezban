@@ -376,7 +376,7 @@ b is even
 => {:duration 2505.328818, :result 12}
 ```
 
-**process-lazy-seq***
+**process-lazy-seq**
 ```clojure
 
 (process-lazy-seq (fn [i]
@@ -385,6 +385,14 @@ b is even
 ;; we can process 10000 data at time and not getting OutOfMemory Exception
 ```
 
+
+**when-no-aot**
+```clojure
+
+;; binding will happen when *compile-files* set to false
+(def db-conn (when-no-aot (create-db-connection!)))
+
+```
 
 
 ## License
