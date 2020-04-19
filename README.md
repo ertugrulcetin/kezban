@@ -394,6 +394,24 @@ b is even
 
 ```
 
+**defay**
+```clojure
+
+(defay current-time  (println "Hi!") (System/currentTimeMillis))
+;; Hi!
+;;=> 1587327846466
+
+@current-time
+
+;;=> 1587327846466
+
+;; Expands to this:
+(def current-time (delay (println "Hi!")
+                         (System/currentTimeMillis)))
+
+(when-not *compile-files* @current-time)
+
+```
 
 ## License
 ```

@@ -412,3 +412,12 @@
      [& body]
      `(when-not *compile-files*
         ~@body)))
+
+
+#?(:clj
+   (defmacro defay
+     [name & forms]
+     `(do
+        (def ~name (delay ~@forms))
+        (when-not *compile-files*
+          (deref ~name)))))
