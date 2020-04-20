@@ -1,4 +1,4 @@
-(defproject kezban "0.1.89"
+(defproject kezban "0.1.90"
   :description "Utility library for Clojure(Script)"
   :license {:name "Apache License"
             :url  "http://www.apache.org/licenses/LICENSE-2.0"}

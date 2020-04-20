@@ -421,3 +421,11 @@
         (def ~name (delay ~@forms))
         (when-not *compile-files*
           (deref ~name)))))
+
+
+#?(:clj
+   (defmacro locals
+     []
+     (->> (keys &env)
+          (map (fn [binding] [`(quote ~binding) binding]))
+          (into {}))))

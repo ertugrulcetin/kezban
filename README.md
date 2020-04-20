@@ -413,6 +413,18 @@ b is even
 
 ```
 
+**locals**
+```clojure
+
+(defn my-fn
+  [a]
+  (let [b 2]
+    (locals)))
+
+(my-fn 1)
+;;=> {a 1, b 2}
+```
+
 ## License
 ```
   Copyright © 2020 Ertuğrul Çetin
