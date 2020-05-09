@@ -146,20 +146,6 @@ user=> (tenth coll)
 => 10
 ```
 
-**any?**
-
-```clojure
-
-(def mixed [1 2 3 4 5 6 7 8])
-
-(def only-odds [1 3 5 7 9])
-
-user=> (any? odd? mixed)
-=> true
-
-user=> (any? even? only-odds)
-=> false
-```
 
 **def-**
 ```clojure

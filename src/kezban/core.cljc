@@ -240,11 +240,6 @@
   (= "class clojure.lang.LazySeq" (str (type x))))
 
 
-(defn any?
-  [pred coll]
-  ((complement not-any?) pred coll))
-
-
 (defn any-pred
   [& preds]
   (complement (apply every-pred (map complement preds))))
