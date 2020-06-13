@@ -411,6 +411,16 @@ b is even
 ;;=> {a 1, b 2}
 ```
 
+**prog1**
+```clojure
+
+(prog1 (+ 1 2)
+  (println "Result: " <>))
+
+;;Result:  3
+;;=> 3
+```
+
 ## License
 ```
   Copyright © 2020 Ertuğrul Çetin

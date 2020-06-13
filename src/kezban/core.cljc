@@ -424,3 +424,18 @@
      (->> (keys &env)
           (map (fn [binding] [`(quote ~binding) binding]))
           (into {}))))
+
+
+#?(:clj
+   (defmacro locals
+     []
+     (->> (keys &env)
+          (map (fn [binding] [`(quote ~binding) binding]))
+          (into {}))))
+
+
+(defmacro prog1
+  [first-form & body]
+  `(let [~'<> ~first-form]
+     ~@body
+     ~'<>))
