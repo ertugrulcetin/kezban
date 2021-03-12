@@ -35,5 +35,3 @@
   (is (= (array? :float (float-array 1)) true))
   (is (= (array? :double (double-array 1)) true))
   (is (= (array? :boolean (boolean-array 1)) true)))
-
-

@@ -80,16 +80,6 @@ user=> (->>> '("a" 2 8 "b") reverse second inc) ;;'("a" 2 8 "b") is the input
 => 9
 ```
 
-**drop-first**
-
-```clojure
-
-user=> (drop-first [1 2 3])
-=> (2 3)
-
-user=> (drop-first [])
-=> ()
-```
 
 **nth-safe**
 
@@ -114,38 +104,6 @@ user=> (nth-safe coll 12 "gimme more!")
 (nnth [1 [2 3 [4 5]]] 1 2 1)
 => 5
 ```
-
-**third, fourth, fifth, sixth, seventh, eighth, ninth, tenth**
-
-```clojure
-
-(def coll [1 2 3 4 5 6 7 8 9 10])
-
-user=> (third coll)
-=> 3
-
-user=> (fourth coll)
-=> 4
-
-user=> (fifth coll)
-=> 5
-
-user=> (sixth coll)
-=> 6
-
-user=> (seventh coll)
-=> 7
-
-user=> (eighth coll)
-=> 8
-
-user=> (ninth coll)
-=> 9
-
-user=> (tenth coll)
-=> 10
-```
-
 
 **def-**
 ```clojure
@@ -178,14 +136,6 @@ user=> (tenth coll)
 => nil
 ```
 
-**eval-when**
-```clojure
-
-(eval-when (= 1 1) '(println "Hi"))
-Hi
-=> nil
-```
-
 **quoted?**
 ```clojure
 
@@ -203,13 +153,6 @@ Hi
 => true
 
 (array? :int (int-array 1))
-=> true
-```
-
-**error?**
-```clojure
-
-(error? (throw (RuntimeException. "fail")))
 => true
 ```
 
@@ -241,13 +184,6 @@ Hi
 => nil
 ```
 
-**has-ns?**
-```clojure
-
-(has-ns? 'ns-does-not-exist)
-=> false
-```
-
 **multi-comp**
 ```clojure
 
@@ -259,18 +195,14 @@ Hi
 => ({:v 12, :a 223} {:v 21, :a 113} {:v 1, :a 113} {:v 100, :a 23} {:v 12, :a 10} {:v 1, :a 2})
 ```
 
-**with-out-str**
+**with-out**
 ```clojure
 
-(with-out-str (println "Hey!"))
-=> "Hey!\n"
-```
+(with-out 
+ (println "Normal out") 
+ (.println (System/err) "Error occurred!"))
+=> {:err "Error occurred!\n", :out "Normal out\n"}
 
-**with-err-str**
-```clojure
-
-(with-err-str (defn + []))
-=> "WARNING: + already refers to: #'clojure.core/+ in namespace: kezban.core, being replaced by: #'kezban.core/+\n"
 ```
 
 **letm**

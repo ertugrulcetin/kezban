@@ -1,4 +1,4 @@
-(ns kezban.core.quoted?-test
+(ns kezban.core.quoted-test
   (:require [clojure.test :refer :all]
             [kezban.core :refer :all]))
 

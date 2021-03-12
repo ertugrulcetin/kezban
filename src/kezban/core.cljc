@@ -6,10 +6,11 @@
   #?(:cljs (:require-macros [cljs.core :as core]
                             [cljs.support :refer [assert-args]]))
   #?(:clj (:import
-            (java.io StringWriter)
-            (java.util.concurrent TimeUnit)
-            (java.net URL)
-            (clojure.lang RT))))
+           (java.io StringWriter ByteArrayOutputStream PrintStream)
+           (java.util.concurrent TimeUnit TimeoutException FutureTask)
+           (java.net URL)
+           (clojure.lang RT))))
+
 
 #?(:cljs
    (defmacro assert-all
@@ -21,12 +22,13 @@
              (when more
                (list* `assert-all fnname more))))))
 
+
 #?(:clj
    (defmacro assert-all
      [& pairs]
      `(do (when-not ~(first pairs)
             (throw (IllegalArgumentException.
-                     (str (first ~'&form) " requires " ~(second pairs) " in " ~'*ns* ":" (:line (meta ~'&form))))))
+                    (str (first ~'&form) " requires " ~(second pairs) " in " ~'*ns* ":" (:line (meta ~'&form))))))
           ~(let [more (nnext pairs)]
              (when more
                (list* `assert-all more))))))
@@ -65,11 +67,12 @@
         ~else)
      then)))
 
+
 (defmacro cond-as->
   [expr name & clauses]
   (assert-all #?(:cljs cond-as->)
               (even? (count clauses)) "exactly even forms in clauses")
-  (let [g     (gensym)
+  (let [g (gensym)
         steps (map (fn [[test step]] `(if ~test ~step ~name))
                    (partition 2 clauses))]
     `(let [~g ~expr
@@ -79,6 +82,7 @@
           name
           (last steps)))))
 
+
 (defmacro ->>>
   "Takes a set of functions and value at the end of the arguments.
    Returns a result that is the composition
@@ -86,12 +90,6 @@
    the next fn (left-to-right) to the result, etc."
   [& form]
   `((comp ~@(reverse (rest form))) ~(first form)))
-
-
-(defn drop-first
-  "Return a lazy sequence of all, except first value"
-  [coll]
-  (drop 1 coll))
 
 
 (defn nth-safe
@@ -110,54 +108,6 @@
   (reduce #(nth-safe %1 %2) coll (cons index indices)))
 
 
-(defn third
-  "Gets the third element from collection"
-  [coll]
-  (nth-safe coll 2))
-
-
-(defn fourth
-  "Gets the fourth element from collection"
-  [coll]
-  (nth-safe coll 3))
-
-
-(defn fifth
-  "Gets the fifth element from collection"
-  [coll]
-  (nth-safe coll 4))
-
-
-(defn sixth
-  "Gets the sixth element from collection"
-  [coll]
-  (nth-safe coll 5))
-
-
-(defn seventh
-  "Gets the seventh element from collection"
-  [coll]
-  (nth-safe coll 6))
-
-
-(defn eighth
-  "Gets the eighth element from collection"
-  [coll]
-  (nth-safe coll 7))
-
-
-(defn ninth
-  "Gets the ninth element from collection"
-  [coll]
-  (nth-safe coll 8))
-
-
-(defn tenth
-  "Gets the tenth element from collection"
-  [coll]
-  (nth-safe coll 9))
-
-
 (defn- xor-result
   [x y]
   (if (and x y)
@@ -170,7 +120,7 @@
      ([] true)
      ([x] x)
      ([x & next]
-      (let [first  x
+      (let [first x
             second `(first '(~@next))
             ;; used this eval approach because of lack of private function usage in macro!
             result (xor-result (eval first) (eval second))]
@@ -183,12 +133,6 @@
    (defmacro pprint-macro
      [form]
      `(pp/pprint (walk/macroexpand-all '~form))))
-
-
-#?(:clj
-   (defn eval-when
-     [test form]
-     (when test (eval form))))
 
 
 ;;does not support syntax-quote
@@ -225,16 +169,6 @@
        (or (some-> c .isArray) false)))))
 
 
-(defmacro error?
-  "Returns true if executing body throws an error(exception, error etc.), false otherwise."
-  [& body]
-  `(try
-     ~@body
-     false
-     (catch #?(:clj Throwable) #?(:cljs js/Error) _#
-                                                  true)))
-
-
 (defn lazy?
   [x]
   (= "class clojure.lang.LazySeq" (str (type x))))
@@ -259,17 +193,12 @@
      (catch #?(:clj Throwable) #?(:cljs js/Error) _#)))
 
 
-(defn has-ns?
-  [ns]
-  (boolean (try-> ns find-ns)))
-
-
 (defn multi-comp
   ([fns a b]
    (multi-comp fns < a b))
   ([[f & others :as fns] order a b]
    (if (seq fns)
-     (let [result   (compare (f a) (f b))
+     (let [result (compare (f a) (f b))
            f-result (if (= order >) (* -1 result) result)]
        (if (= 0 f-result)
          (recur others order a b)
@@ -278,22 +207,17 @@
 
 
 #?(:clj
-   (defmacro with-out-str-data-map
-     [& body]
-     `(let [s# (StringWriter.)]
-        (binding [*out* s#]
-          (let [r# ~@body]
-            {:result r#
-             :str    (str s#)})))))
-
-
-#?(:clj
-   (defmacro with-err-str
-     [& body]
-     `(let [s# (StringWriter.)]
-        (binding [*err* s#]
-          (eval '(do ~@body))
-          (str s#)))))
+   (defmacro with-out [& body]
+     `(let [err-buffer# (ByteArrayOutputStream.)
+            original-err# System/err
+            tmp-err# (PrintStream. err-buffer# true "UTF-8")
+            out# (with-out-str (try
+                                 (System/setErr tmp-err#)
+                                 ~@body
+                                 (finally
+                                   (System/setErr original-err#))))]
+        {:out out#
+         :err (.toString err-buffer# "UTF-8")})))
 
 
 (defmacro letm
@@ -334,8 +258,20 @@
 
 #?(:clj
    (defmacro with-timeout
-     [msec & body]
-     `(.get (future ~@body) ~msec TimeUnit/MILLISECONDS)))
+     [ms & body]
+     `(let [task# (FutureTask. (fn [] ~@body))
+            thr# (Thread. task#)]
+        (try
+          (.start thr#)
+          (.get task# ~ms TimeUnit/MILLISECONDS)
+          (catch TimeoutException _#
+            (.cancel task# true)
+            (.stop thr#)
+            (throw (TimeoutException. "Execution timed out.")))
+          (catch Exception e#
+            (.cancel task# true)
+            (.stop thr#)
+            (throw e#))))))
 
 
 #?(:clj
@@ -384,9 +320,9 @@
    (defmacro time*
      [& forms]
      `(let [start# (. System (nanoTime))
-            ret#   (do ~@forms)]
+            ret# (do ~@forms)]
         {:duration (/ (double (- (. System (nanoTime)) start#)) 1000000.0)
-         :result   ret#})))
+         :result ret#})))
 
 
 (defn process-lazy-seq
@@ -395,11 +331,6 @@
     (doseq [d data]
       (f d))
     (recur f threshold (drop threshold lazy-s))))
-
-
-(defmacro forall
-  [seq-exprs body-expr]
-  `(doall (for ~seq-exprs ~body-expr)))
 
 
 #?(:clj
@@ -416,14 +347,6 @@
         (def ~name (delay ~@forms))
         (when-not *compile-files*
           (deref ~name)))))
-
-
-#?(:clj
-   (defmacro locals
-     []
-     (->> (keys &env)
-          (map (fn [binding] [`(quote ~binding) binding]))
-          (into {}))))
 
 
 #?(:clj

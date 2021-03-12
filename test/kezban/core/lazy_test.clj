@@ -1,5 +1,5 @@
-(ns kezban.core.lazy?-test
-  (require [clojure.test :refer :all]
+(ns kezban.core.lazy-test
+  (:require [clojure.test :refer :all]
            [kezban.core :refer :all]))
 
 (deftest test-false
@@ -12,4 +12,3 @@
   (is (= (lazy? (lazy-cat [1 2 3] [4 5 6])) true))
   (is (= (lazy? (for [i (range 10)] i)) true))
   (is (= (lazy? (interleave [1 2] [3 4] [5 6])) true)))
-
