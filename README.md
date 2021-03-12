@@ -163,13 +163,6 @@ user=> (nth-safe coll 12 "gimme more!")
 => true
 ```
 
-**any?**
-```clojure
-
-(any? odd? [2 4 5])
-=> true
-```
-
 **any-pred**
 ```clojure
 
