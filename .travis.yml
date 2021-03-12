@@ -4,7 +4,7 @@ branches:
   only:
     - master
 jdk:
-  - oraclejdk8
+  - openjdk11
 notifications:
   email:
     - ertu.ctn@gmail.com
