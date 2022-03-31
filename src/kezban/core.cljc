@@ -362,3 +362,6 @@
   `(let [~'<> ~first-form]
      ~@body
      ~'<>))
+
+(defmacro defm [name params & body]
+  `(def ~name (memoize (fn ~params ~@body))))

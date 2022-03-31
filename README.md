@@ -346,6 +346,31 @@ b is even
 ;;=> 3
 ```
 
+
+**defm**
+```clojure
+(defm my-add [x y]
+  (println "Result: " (+ x y))
+  (+ x y))
+
+(my-add 1 2)
+;;Result:  3
+;;=> 3
+
+(my-add 1 2)
+;;=> 3
+```
+```clojure
+
+Memoized function, expands to this:
+
+(def my-add
+  (memoize
+    (fn [x y]
+      (println "Result: " (+ x y))
+      (+ x y))))
+```
+
 ## License
 ```
   Copyright © 2020 Ertuğrul Çetin
