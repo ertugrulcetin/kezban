@@ -22,14 +22,14 @@ The library targets **Clojure 1.8** and above.
 ```clojure
 
 user=> (when-let* [a 1 b 2 c 3]
-                  (println "I'm in love with the coco")
+                  (println "I <3 Clojure")
                   a)
-=> "I'm in love with the coco"
+=> "I <3 Clojure"
 => 1
 
 ;;returns nil when one binding is nil or false
 user=> (when-let* [a 1 b nil c 3]
-                  (println "Please print me!!!")
+                  (println "Please print me!")
                   a)
 => nil                              
 ```
@@ -45,8 +45,8 @@ user=> (if-let* [a 1 b 2 c (+ a b)]
 ;;returns then part when one binding is nil or false
 user=> (if-let* [a 1 b nil c 3]
                 "Nope not here"
-                "Here I Am Baby!")
-=> "Here I Am Baby!"         
+                "Here I Am!")
+=> "Here I Am!"         
 ```
 
 **cond-as->**
@@ -93,8 +93,8 @@ user=> (nth-safe coll 0)
 user=> (nth-safe coll 12)
 => nil
 
-user=> (nth-safe coll 12 "gimme more!")
-=> "gimme more!"
+user=> (nth-safe coll 12 "not-found-value")
+=> "not-found-value"
 ```
 
 **nnth**
@@ -373,7 +373,7 @@ Memoized function, expands to this:
 
 ## License
 ```
-  Copyright © 2020 Ertuğrul Çetin
+  Copyright © 2022 Ertuğrul Çetin
   
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
